@@ -10,6 +10,7 @@ INSERT INTO migrations (file_name) VALUES ('002_raster_change.sql');
 INSERT INTO migrations (file_name) VALUES ('003_metrics_update.sql');
 INSERT INTO migrations (file_name) VALUES ('004_metadata.sql');
 INSERT INTO migrations (file_name) VALUES ('005_raster_symbology.sql');
+INSERT INTO migrations (file_name) VALUES ('006_brat_cis_reaches.sql');
 
 -- LOOKUP TABLES
 CREATE TABLE protocols (
@@ -95,7 +96,7 @@ INSERT INTO layers (id, fc_name, display_name, geom_type, is_lookup, qml, descri
 INSERT INTO layers (id, fc_name, display_name, geom_type, is_lookup, qml, description) VALUES (23, 'channel_unit_points', 'Channel Unit Points', 'Point', 0, 'channel_unit_points.qml', NULL);
 INSERT INTO layers (id, fc_name, display_name, geom_type, is_lookup, qml, description) VALUES (24, 'channel_unit_polygons', 'Channel Unit Polygons ', 'Polygon', 0, 'channel_unit_polygons.qml', NULL);
 INSERT INTO layers (id, fc_name, display_name, geom_type, is_lookup, qml, description) VALUES (25, 'brat_cis', 'BRAT CIS (Capacity Inference System)', 'Point', 0, 'none.qml', NULL);
-INSERT INTO layers (id, fc_name, display_name, geom_type, is_lookup, qml, description) VALUES (26, 'brat_cis_reaches', 'BRAT CIS Reaches', 'Linestring', 0, 'none.qml', NULL);
+INSERT INTO layers (id, fc_name, display_name, geom_type, is_lookup, qml, description) VALUES (26, 'brat_cis_reaches', 'BRAT CIS Reaches', 'Linestring', 0, 'brat_reaches_manual.qml', NULL);
 -- Lookup Tables
 INSERT INTO layers (id, fc_name, display_name, geom_type, is_lookup, qml, description) VALUES (100, 'lkp_metric_sources', 'Metric Sources', 'NoGeometry', 1, 'temp.qml', NULL);
 INSERT INTO layers (id, fc_name, display_name, geom_type, is_lookup, qml, description) VALUES (101, 'lkp_platform', 'Platform', 'NoGeometry', 1, 'temp.qml', NULL);

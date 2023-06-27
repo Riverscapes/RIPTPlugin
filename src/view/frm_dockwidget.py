@@ -589,7 +589,8 @@ class QRiSDockWidget(QtWidgets.QDockWidget):
             return
 
         attributes = {'ReachID': 'reach_id'}
-        import_existing(import_source_path, self.project.project_file, db_item.layer.fc_name, db_item.id, 'event_id', attributes, None)
+        prefix = 'brat_existing_'
+        import_existing(import_source_path, self.project.project_file, db_item.layer.fc_name, db_item.event_id, 'event_id', attributes, None, prefix)
 
         # self.add_child_to_project_tree(parent_node, db_item, True)
 

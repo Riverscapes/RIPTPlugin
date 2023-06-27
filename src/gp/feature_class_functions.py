@@ -108,7 +108,7 @@ def import_mask(source_path: str, dest_path: str, mask_id: int, attributes: dict
         raise Exception("No features were imported. Check that the source and destination coordinate systems are the same and that the source and aoi mask geometries intersect.")
 
 
-def import_existing(source_path: str, dest_path: str, dest_layer_name: str, output_id: int, output_id_field: str, attributes: dict = {}, clip_mask_id: int = None) -> None:
+def import_existing(source_path: str, dest_path: str, dest_layer_name: str, output_id: int, output_id_field: str, fid_key: dict = {}, clip_mask_id: int = None, attributes_prefix: str = None) -> None:
     """
     Copy the features from a source feature class to a destination mask feature class.
     The mask record must already exist. The attributes is a dictionary of source column
@@ -133,6 +133,14 @@ def import_existing(source_path: str, dest_path: str, dest_layer_name: str, outp
     dst_srs = dst_layer.GetSpatialRef()
     dst_layer_def = dst_layer.GetLayerDefn()
 
+    if attributes_prefix is not None:
+        attributes = {}
+        for field in src_layer.schema:
+            # copy field from source to destination and add prefix to the field name
+            attributes[field.name] = f'{attributes_prefix}_{field.name}'
+            field_defn = ogr.FieldDefn(attributes[field.name], field.type)
+            dst_layer.CreateField(field_defn)
+
     clip_geom = None
     if clip_mask_id is not None:
         clip_layer = dst_dataset.GetLayer('aoi_features')
@@ -154,18 +162,24 @@ def import_existing(source_path: str, dest_path: str, dest_layer_name: str, outp
         dst_feature = ogr.Feature(dst_layer_def)
         dst_feature.SetGeometry(geom)
         dst_feature.SetField(output_id_field, output_id)
-        for src_field, dst_field in attributes.items():
+        for src_field, dst_field in fid_key.items():
             # Retrieve the field value differently if the feature ID is being used
             value = str(src_feature.GetFID()) if src_field == fid_field_name else src_feature.GetField(src_field)
             dst_feature.SetField(dst_field, value)
+        if attributes_prefix is not None:
+            for src_field, dst_field in attributes.items():
+                # Retrieve the field value differently if the feature ID is being used
+                value = str(src_feature.GetFID()) if src_field == fid_field_name else src_feature.GetField(src_field)
+                dst_feature.SetField(dst_field, value)
 
         err = dst_layer.CreateFeature(dst_feature)
         dst_feature = None
+        feats += 1
 
     src_dataset = None
     dst_dataset = None
 
-    if feats == 0:
+    if feats == 0 or err != 0:
         raise Exception("No features were imported. Check that the source and destination coordinate systems are the same and that the source and aoi mask geometries intersect.")
 
 

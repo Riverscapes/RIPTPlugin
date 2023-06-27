@@ -1,5 +1,5 @@
 import os
-import json
+import sqlite3
 from textwrap import dedent
 
 from .riverscapes_map_manager import RiverscapesMapManager
@@ -290,6 +290,8 @@ class QRisMapManager(RiverscapesMapManager):
             self.configure_complexes(feature_layer)
         elif layer_name in ['brat_cis', 'brat_cis_reaches']:
             self.add_brat_cis(feature_layer)
+            if layer_name == 'brat_cis_reaches':
+                self.create_machine_code_feature_layer(self.project.map_guid, event_group_layer, fc_path, f'{event_layer.event_id}_BRAT_REACHES_SQL', 'SQLBRAT Reaches', 'brat_sql_reaches.qml')
         else:
             # TODO: Should probably have a notification for layers not found....
             pass
@@ -325,7 +327,7 @@ class QRisMapManager(RiverscapesMapManager):
         veg_container = QgsAttributeEditorContainer('Vegetation Evidence CIS', rootContainer)
         self.set_value_map(feature_layer, 'streamside_veg_id', self.project.project_file, 'lkp_brat_vegetation_types', 'Streamside Vegetation', parent_container=veg_container, display_index=0)
         self.set_value_map(feature_layer, 'riparian_veg_id', self.project.project_file, 'lkp_brat_vegetation_types', 'Riparian Vegetation', parent_container=veg_container, display_index=1)
-        veg_expression = 'get_veg_dam_density(streamside_veg_id, riparian_veg_id, @lkp_brat_vegetation_cis)'
+        veg_expression = get_veg_expression(self.project.project_file, 'lkp_brat_vegetation_cis')
         self.set_value_map(feature_layer, 'veg_density_id', self.project.project_file, 'lkp_brat_dam_density', 'Vegetation Dam Density', expression=veg_expression, parent_container=veg_container, display_index=2)
         editFormConfig.addTab(veg_container)
 
@@ -334,7 +336,7 @@ class QRisMapManager(RiverscapesMapManager):
         self.set_value_map(feature_layer, 'base_streampower_id', self.project.project_file, 'lkp_brat_base_streampower', 'Base Streampower', parent_container=comb_container, display_index=0)
         self.set_value_map(feature_layer, 'high_streampower_id', self.project.project_file, 'lkp_brat_high_streampower', 'High Streampower', parent_container=comb_container, display_index=1)
         self.set_value_map(feature_layer, 'slope_id', self.project.project_file, 'lkp_brat_slope', 'Slope', parent_container=comb_container, display_index=2)
-        comb_expression = 'get_comb_dam_density(veg_density_id, base_streampower_id, high_streampower_id, slope_id,  @lkp_brat_combined_cis)'
+        comb_expression = get_comb_expression(self.project.project_file, 'lkp_brat_combined_cis')
         self.set_value_map(feature_layer, 'combined_density_id', self.project.project_file, 'lkp_brat_dam_density', 'Combined Dam Density', expression=comb_expression, parent_container=comb_container, display_index=3)
         editFormConfig.addTab(comb_container)
 
@@ -524,20 +526,31 @@ class QRisMapManager(RiverscapesMapManager):
                 QgsProject.instance().removeMapLayer(layer.id())
 
 
-# QGSfunctions for field expressions
-@qgsfunction(args='auto', group='QRIS', referenced_columns=[])
-def get_veg_dam_density(stream_veg, riparian_veg, rules_string, feature, parent):
-    rules = json.loads(rules_string)
-    for rule in rules:
-        if stream_veg == rule[1] and riparian_veg == rule[2]:
-            return rule[3]
-    return 1
+def get_comb_expression(database: str, table: str) -> str:
+
+    with sqlite3.connect(database) as conn:
+        curs = conn.cursor()
+        curs.execute("SELECT * FROM {};".format(table))
+        lookup_collection = curs.fetchall()
+    expression = "CASE\n"
+    for rule in lookup_collection:
+        expression += 'WHEN "veg_density_id" = {} AND "base_streampower_id" = {} AND "high_streampower_id" = {} AND "slope_id" = {} THEN {}\n'.format(rule[1], rule[2], rule[3], rule[4], rule[5])
+    expression += "ELSE 1\n"
+    expression += "END"
+
+    return expression
 
 
-@qgsfunction(args='auto', group='QRIS', referenced_columns=[])
-def get_comb_dam_density(veg_density, base_power, high_power, slope, cis_rules, feature, parent):
-    combined_rules = json.loads(cis_rules)
-    for rule in combined_rules:
-        if veg_density == rule[1] and base_power == rule[2] and high_power == rule[3] and slope == rule[4]:
-            return rule[5]
-    return 1  # Default output is None if not in rules table
+def get_veg_expression(database: str, table: str) -> str:
+
+    with sqlite3.connect(database) as conn:
+        curs = conn.cursor()
+        curs.execute("SELECT * FROM {};".format(table))
+        lookup_collection = curs.fetchall()
+    expression = "CASE\n"
+    for rule in lookup_collection:
+        expression += 'WHEN "streamside_veg_id" = {} AND "riparian_veg_id" = {} THEN {}\n'.format(rule[1], rule[2], rule[3])
+    expression += "ELSE 1\n"
+    expression += "END"
+
+    return expression
