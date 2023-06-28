@@ -39,5 +39,6 @@
         <file alias="auto_none">../Images/auto_none.png</file>
         <file alias="auto_exists">../Images/auto_exists.png</file>
         <file alias="auto_selected">../Images/auto_selected.png</file>
+        <file alias="qfield_transfer">../Images/qfield_transfer.png</file>
     </qresource>
 </RCC>

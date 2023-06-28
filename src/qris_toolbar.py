@@ -208,6 +208,10 @@ class QRiSToolbar:
         icon_path = ':/plugins/qris_toolbar/riverscapes_icon'
         self.add_action(icon_path, text='QRiS', callback=self.run, parent=self.iface.mainWindow(), add_to_menu=False)
 
+        # --- QField Button ---
+        qfield_icon_path = ':/plugins/qris_toolbar/qfield_transfer'
+        self.add_action(qfield_icon_path, text='Prepare QRiS Project for Qfield', callback=self.prepare_qfield, parent=self.iface.mainWindow(), add_to_menu=False)
+
         # --- PROJECT MENU ---
         project_menu = self.add_toolbar_menu('Project')
         self.add_menu_action(project_menu, 'new', 'New QRiS Project', self.create_new_project_dialog, True, 'Create a New QRiS Project')
@@ -587,3 +591,48 @@ class QRiSToolbar:
         dest_crs = QgsCoordinateReferenceSystem(output_epsg)
         transform = QgsCoordinateTransform(source_crs, dest_crs, QgsProject.instance().transformContext())
         return transform.transform(geometry)
+
+    def prepare_qfield(self):
+
+        # make sure a project is open
+        if self.dockwidget is None:
+            self.iface.messageBar().pushMessage('QRiS QField Transfer', 'No QRiS project is open.', level=Qgis.Warning, duration=5)
+            return
+        if self.dockwidget.project is None:
+            self.iface.messageBar().pushMessage('QRiS QField Transfer', 'No QRiS project is open.', level=Qgis.Warning, duration=5)
+            return
+
+        result = QtWidgets.QMessageBox.question(None, 'QRiS QField Transfer', 'This will prepare the QRiS project for use in QField. All rasters (except Riverscapes Basemaps) will be removed from the map. Do you want to continue?',
+                                                QtWidgets.QMessageBox.Yes | QtWidgets.QMessageBox.No, QtWidgets.QMessageBox.No)
+        if result == QtWidgets.QMessageBox.No:
+            return
+
+        # check if there are more than one qgs project file in the project folder
+        # if so, warn user and return
+        project_folder = os.path.dirname(self.dockwidget.project.project_file)
+        qgs_files = [f for f in os.listdir(project_folder) if f.endswith('.qgs')]
+        if len(qgs_files) > 1:
+            QtWidgets.QMessageBox.warning(None, 'QRiS QField Transfer', 'There is more than one QGIS project file in the QRiS project folder. Please remove all but one QGIS project file and try again.')
+            return
+
+        # if there is an existing qgis project file, warn user that they will be overwriting it and prompt user to continue
+        if len(qgs_files) == 1:
+            result = QtWidgets.QMessageBox.question(None, 'QRiS QField Transfer', 'There is an existing QGIS project file in the project folder. This file will be overwritten. Do you want to continue?', QtWidgets.QMessageBox.Yes | QtWidgets.QMessageBox.No, QtWidgets.QMessageBox.No)
+            if result == QtWidgets.QMessageBox.No:
+                return
+            qgis_project_file = os.path.join(project_folder, qgs_files[0])
+        else:
+            qgis_project_file = os.path.join(project_folder, f'{os.path.basename(project_folder)}.qgs')
+
+        # check if qgis is in edit mode and if so, disable
+        if self.iface.activeLayer() is not None:
+            if self.iface.activeLayer().isEditable():
+                self.iface.activeLayer().setEditable(False)
+
+        self.dockwidget.map_manager.remove_non_basemap_rasters()
+
+        # Finally save (or overwrite) the qgis project file
+        QgsProject.instance().write(qgis_project_file)
+
+        # Write a log message to the user
+        self.iface.messageBar().pushMessage('QRiS QField Transfer', f'QRiS Project prepared for QField. QGIS project file saved to {qgis_project_file}', level=Qgis.Info, duration=5)

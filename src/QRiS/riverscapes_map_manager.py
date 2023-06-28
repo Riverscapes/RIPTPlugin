@@ -161,6 +161,19 @@ class RiverscapesMapManager():
             parent_group.removeChildNode(layer)
             self.remove_empty_groups(parent_group)
 
+    def remove_non_basemap_rasters(self, group=None) -> None:
+        # recursively search though the root group all groups and layers for raster layers
+        # if the raster layer custom property is not a Riverscapes Basemap, remove it
+
+        group = QgsProject.instance().layerTreeRoot() if group is None else group
+        for child in group.children():
+            if isinstance(child, QgsLayerTreeGroup):
+                self.remove_non_basemap_rasters(child)
+            else:
+                if child.layer().type() == QgsMapLayer.RasterLayer:
+                    if child.customProperty('Basemaps') is None:
+                        group.removeChildNode(child)
+
     def test_for_zoom(self) -> bool:
         """Returns True if the map should zoom to the new layer."""
 
