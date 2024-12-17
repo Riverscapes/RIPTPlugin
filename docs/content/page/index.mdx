@@ -7,6 +7,7 @@ banner: false
 
 import { Container } from '@mui/material'
 import CardImage from './card-image.jpg'
+import HelpCenterIcon from '@mui/icons-material/HelpCenter';
 
 <Container maxWidth="xl">
 
@@ -36,10 +37,25 @@ QRiS is a plugin to the free, open-source [QGIS](https://qgis.org/en/site/) desk
     </Grid>
 </Container>
 
-QRiS is currently in beta and available as an experimental plugin in the QGIS plugin repository. We are actively developing the tool and welcome feedback and contributions. Please get in touch if you would like to get involved.
+QRiS 1.0 [was released in September 2024](https://www.riverscapes.net/topics/33160/topic_feed_posts/803783)  and is available as a plugin in the [QGIS plugin repository](https://plugins.qgis.org/plugins/qris_deploy/). We are actively developing the tool and welcome [feedback and feature requests via the forum](https://www.riverscapes.net/topics/33160/forum). Please get in touch if you would like to get involved.
 </Container>
 
-<Button to="https://www.riverscapes.net/topics/33160/feed" iconName="Face"
-  title="Riverscapes Studio (QRiS) User Community "
-  subtitle="Join, Contribute, Stay up to Date"
-/>
+<Container maxWidth="xl">
+    <Grid container spacing={4} sx={{mt: 3}} padding={0}>
+      <Button to="https://www.riverscapes.net/topics/33160/feed" iconName="Diversity3"
+        title="QRiS User Community "
+        subtitle="Join, Contribute, Stay up to Date" color="secondary"
+      />
+      <Button to="https://riverscapes.freshdesk.com/support/solutions/folders/153000068961" iconName="HelpCenter"
+        title="Knowledge Base Articles"
+        subtitle="Search QRiS Knowledge Base on Freshdesk" 
+      />
+      <Button to="https://riverscapes.freshdesk.com/support/" iconName="SupportAgent"
+        title="Get Support"
+        subtitle="Submit a Ticket on Freshdesk" color="secondary"
+      />
+    </Grid>
+</Container>
+
+QRiS is open-source software, developed by [North Arrow Research](https://www.northarrowresearch.com/) and the Utah State Univesity [RAM Lab](). <Icon iconName="GitHub" />.
+
