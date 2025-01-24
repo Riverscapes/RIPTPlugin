@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+    <!-- Define the Metadata group -->
+    <xs:group name="MetadataGroup">
+        <xs:sequence>
+            <xs:element name="Metadata" minOccurs="0" maxOccurs="1">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="MetadataItem" minOccurs="1" maxOccurs="unbounded">
+                            <xs:complexType>
+                                <xs:sequence>
+                                    <xs:element name="Name" type="xs:string" minOccurs="1" maxOccurs="1"/>
+                                    <xs:element name="Value" type="xs:string" minOccurs="1" maxOccurs="1"/>
+                                </xs:sequence>
+                            </xs:complexType>
+                        </xs:element>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+        </xs:sequence>
+    </xs:group>
+
+    <xs:element name="Protocol">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="Label" type="xs:string" minOccurs="1" maxOccurs="1"/>
+                <xs:element name="Description" type="xs:string" minOccurs="1" maxOccurs="1"/>
+                <xs:element name="URL" type="xs:string" minOccurs="1" maxOccurs="1"/>
+                <xs:element name="Citation" type="xs:string" minOccurs="1" maxOccurs="1"/>
+                <xs:element name="Author" type="xs:string" minOccurs="1" maxOccurs="1"/>
+                <xs:element name="CreationDate" type="xs:string" minOccurs="1" maxOccurs="1"/>
+                <xs:element name="UpdatedDate" type="xs:string" minOccurs="1" maxOccurs="1"/>
+                <xs:group ref="MetadataGroup"/>
+                <xs:element name="Layers">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="Layer" minOccurs="1" maxOccurs="unbounded">
+                                <xs:complexType>
+                                    <xs:sequence>
+                                        <xs:element name="Label" type="xs:string" minOccurs="1" maxOccurs="1"/>
+                                        <xs:element name="Symbology" type="xs:string" minOccurs="1" maxOccurs="1"/>
+                                        <xs:element name="Description" type="xs:string" minOccurs="0" maxOccurs="1"/>
+                                        <xs:element name="MenuItems" minOccurs="0" maxOccurs="1">
+                                            <xs:complexType>
+                                                <xs:sequence>
+                                                    <xs:element name="MenuItem" minOccurs="1" maxOccurs="unbounded"/>
+                                                </xs:sequence>
+                                            </xs:complexType>
+                                        </xs:element>
+                                        <xs:element name="Hierarchy" minOccurs="0" maxOccurs="1">
+                                            <xs:complexType>
+                                                <xs:sequence>
+                                                    <xs:element name="HierarchyItem" minOccurs="1" maxOccurs="unbounded"/>
+                                                </xs:sequence>
+                                            </xs:complexType>
+                                        </xs:element>
+                                        <xs:element name="Fields" minOccurs="0" maxOccurs="1">
+                                            <xs:complexType>
+                                                <xs:sequence>
+                                                    <xs:element name="Field" minOccurs="1" maxOccurs="unbounded">
+                                                        <xs:complexType>
+                                                            <xs:sequence>
+                                                                <xs:element name="Label" type="xs:string" minOccurs="1" maxOccurs="1"/>
+                                                                <xs:element name="DefaultValue" type="xs:string" minOccurs="0" maxOccurs="1"/>
+                                                                <xs:element name="LookupValues" minOccurs="0" maxOccurs="1">
+                                                                    <xs:complexType>
+                                                                        <xs:sequence>
+                                                                            <xs:element name="LookupValue" type="xs:string" minOccurs="1" maxOccurs="unbounded"/>
+                                                                        </xs:sequence>
+                                                                        <xs:attribute name="allow_custom_values" type="xs:boolean" default="false" use="optional"/>
+                                                                    </xs:complexType>        
+                                                                </xs:element>
+                                                            </xs:sequence>
+                                                            <xs:attribute name="machine_code" type="xs:string" use="required"/>
+                                                            <xs:attribute name="version" type="xs:string" use="required"/>
+                                                            <xs:attribute name="type" use="required">
+                                                                <xs:simpleType>
+                                                                    <xs:restriction base="xs:string">
+                                                                        <xs:enumeration value="text"/>
+                                                                        <xs:enumeration value="float"/>
+                                                                        <xs:enumeration value="integer"/>
+                                                                        <xs:enumeration value="list"/>
+                                                                        <xs:enumeration value="attachment"/>
+                                                                    </xs:restriction>
+                                                                </xs:simpleType>
+                                                            </xs:attribute>
+                                                            <xs:attribute name="value_required" type="xs:boolean" default="false" use="optional"/>
+                                                        </xs:complexType>
+                                                    </xs:element>
+                                                </xs:sequence>
+                                            </xs:complexType>
+                                        </xs:element>
+                                        <xs:group ref="MetadataGroup"/>
+                                    </xs:sequence>
+                                    <xs:attribute name="machine_code" type="xs:string" use="required"/>
+                                    <xs:attribute name="version" type="xs:string" use="required"/>
+                                    <xs:attribute name="geom_type" use="required">
+                                        <xs:simpleType>
+                                            <xs:restriction base="xs:string">
+                                                <xs:enumeration value="Point"/>
+                                                <xs:enumeration value="Linestring"/>
+                                                <xs:enumeration value="Polygon"/>
+                                            </xs:restriction>
+                                        </xs:simpleType>
+                                    </xs:attribute>
+                                </xs:complexType>
+                            </xs:element>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+                <xs:element name="Metrics" minOccurs="0" maxOccurs="1">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="Metric" minOccurs="1" maxOccurs="unbounded">
+                                <xs:complexType>
+                                    <xs:sequence>
+                                        <xs:element name="Label" type="xs:string" minOccurs="1" maxOccurs="1"/>
+                                        <xs:element name="DefaultLevel" minOccurs="1" maxOccurs="1">
+                                            <xs:simpleType>
+                                                <xs:restriction base="xs:string">
+                                                    <xs:enumeration value="Metric"/>
+                                                    <xs:enumeration value="Indicator"/>
+                                                    <xs:enumeration value="None"/>
+                                                </xs:restriction>
+                                            </xs:simpleType>
+                                        </xs:element>
+                                        <xs:element name="Description" type="xs:string" minOccurs="0" maxOccurs="1"/>
+                                        <xs:element name="DefinitionURL" type="xs:string" minOccurs="0" maxOccurs="1"/>
+                                        <xs:element name="MinimumValue" type="xs:float" minOccurs="0" maxOccurs="1"/>
+                                        <xs:element name="MaximumValue" type="xs:float" minOccurs="0" maxOccurs="1"/>
+                                        <xs:element name="Precision" type="xs:integer" minOccurs="0" maxOccurs="1"/>
+                                        <xs:element name="Parameters">
+                                            <xs:complexType>
+                                                <xs:sequence>
+                                                    <xs:element name="Inputs" minOccurs="0" maxOccurs="1">
+                                                        <xs:complexType>
+                                                            <xs:sequence>
+                                                                <xs:element name="Input" minOccurs="1" maxOccurs="unbounded">
+                                                                    <xs:complexType>
+                                                                        <xs:sequence>
+                                                                            <xs:element name="Usage" minOccurs="0" maxOccurs="1">
+                                                                                <xs:simpleType>
+                                                                                    <xs:restriction base="xs:string">
+                                                                                        <xs:enumeration value="Normalization"/>
+                                                                                        <xs:enumeration value="Surface"/>
+                                                                                    </xs:restriction>
+                                                                                </xs:simpleType>
+                                                                            </xs:element>
+                                                                        </xs:sequence>
+                                                                        <xs:attribute name="machine_code_reference" use="required">
+                                                                            <xs:simpleType>
+                                                                                <xs:restriction base="xs:string">
+                                                                                    <xs:enumeration value="dem"/> 
+                                                                                    <xs:enumeration value="centerline"/>
+                                                                                    <xs:enumeration value="surface"/>
+                                                                                    <xs:enumeration value="valley_bottom"/>
+                                                                                </xs:restriction>
+                                                                            </xs:simpleType>
+                                                                        </xs:attribute>
+                                                                    </xs:complexType>
+                                                                </xs:element>
+                                                            </xs:sequence>
+                                                        </xs:complexType>
+                                                    </xs:element>
+                                                    <xs:element name="DCELayers" minOccurs="0" maxOccurs="1">
+                                                        <xs:complexType>
+                                                            <xs:sequence>
+                                                                <xs:element name="DCELayer" minOccurs="1" maxOccurs="unbounded">
+                                                                    <xs:complexType>
+                                                                        <xs:sequence>
+                                                                            <xs:element name="Usage" minOccurs="0" maxOccurs="1">
+                                                                                <xs:simpleType>
+                                                                                    <xs:restriction base="xs:string">
+                                                                                        <xs:enumeration value="Denominator"/>
+                                                                                        <xs:enumeration value="Numerator"/>
+                                                                                    </xs:restriction>
+                                                                                </xs:simpleType>
+                                                                            </xs:element>
+                                                                            <xs:element name="CountField" type="xs:string" minOccurs="0" maxOccurs="1"/>
+                                                                            <xs:element name="AttributeFilter" minOccurs="0" maxOccurs="1">
+                                                                                <xs:complexType>
+                                                                                    <xs:sequence>
+                                                                                        <xs:element name="Value" minOccurs="1" maxOccurs="unbounded"/>
+                                                                                    </xs:sequence>
+                                                                                    <xs:attribute name="field" type="xs:string" use="required"/>
+                                                                                </xs:complexType>
+                                                                            </xs:element>
+                                                                        </xs:sequence>
+                                                                        <xs:attribute name="machine_code_reference" use="required"/>
+                                                                    </xs:complexType>
+                                                                </xs:element>
+                                                            </xs:sequence>
+                                                        </xs:complexType>
+                                                    </xs:element>
+                                                </xs:sequence>                                         
+                                            </xs:complexType>
+                                        </xs:element>
+                                    </xs:sequence>
+                                    <xs:attribute name="machine_code" type="xs:string" use="required"/>
+                                    <xs:attribute name="version" type="xs:string" use="required"/>
+                                    <xs:attribute name="calculation_machine_code" type="xs:string" use="required"/>
+                                </xs:complexType>
+                            </xs:element>
+                        </xs:sequence>
+
+                    </xs:complexType>
+                </xs:element>
+            </xs:sequence>
+            <xs:attribute name="machine_code" type="xs:string" use="required"/>
+            <xs:attribute name="version" type="xs:string" use="required"/>
+            <xs:attribute name="status" use="required">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:enumeration value="experimental"/>
+                        <xs:enumeration value="production"/>
+                        <xs:enumeration value="deprecated"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:attribute>
+        </xs:complexType>
+    </xs:element>
+
+</xs:schema>

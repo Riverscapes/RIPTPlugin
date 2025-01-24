@@ -1,4 +1,4 @@
-<Protocol machine_code="LTPBR_BASE" version="1.0" status="experimental">
+<Protocol machine_code="LTPBR_BASE" version="1.0" status="experimental" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="protocol.xsd">
     <Label>LTPBR Protocol</Label>
     <Description>Base LTPBR Layers</Description>
     <URL>https://lowtechpbr.restoration.usu.edu/</URL>
@@ -13,7 +13,7 @@
         </MetadataItem>
     </Metadata>
     <Layers>
-        <Layer machineCode="dam_crests" version="1.0" geom_type="Linestring">
+        <Layer machine_code="dam_crests" version="1.0" geom_type="Linestring">
             <Label>Dam Crests</Label>
             <Symbology>beaver_dams.qml</Symbology>
             <Description>Dam Crests Layer</Description>
@@ -22,7 +22,7 @@
                 <HierarchyItem>Beaver Dam Building</HierarchyItem>
             </Hierarchy>
             <Fields>
-                <Field machineCode="structure_source_id" version="1.0" type="list">
+                <Field machine_code="structure_source_id" version="1.0" type="list">
                     <Label>Structure Source</Label>
                     <LookupValues>
                         <LookupValue>Artificial</LookupValue>
@@ -53,7 +53,9 @@
                         <LookupValue>Low</LookupValue>
                     </LookupValues>
                 </Field>
-        <Layer machineCode="active_channel" version="1.0" geom_type="Polygon">
+            </Fields>
+        </Layer>
+        <Layer machine_code="active_channel" version="1.0" geom_type="Polygon">
             <Label>Active Channel</Label>
             <Symbology>active_channels.qml</Symbology>
             <Description>Active Channel Layer</Description>
@@ -63,7 +65,7 @@
                 <HierarchyItem>Channel</HierarchyItem>
             </Hierarchy>
         </Layer>
-        <Layer machineCode="active_extents" version="1.0" geom_type="Polygon">
+        <Layer machine_code="active_extents" version="1.0" geom_type="Polygon">
             <Label>Active Extents</Label>
             <Symbology>active_extents.qml</Symbology>
             <Description>Active Extents Layer</Description>
@@ -76,7 +78,7 @@
                 <HierarchyItem>Floodplain</HierarchyItem>
             </Hierarchy>
             <Fields>
-                <Field machineCode="type_id" version="1.0" type="list">
+                <Field machine_code="type_id" version="1.0" type="list">
                     <Label>Type</Label>
                     <LookupValues>
                         <LookupValue>Active</LookupValue>
@@ -85,7 +87,7 @@
                 </Field>
             </Fields>
         </Layer>
-        <Layer machineCode="centerlines" version="1.0" geom_type="Linestring">
+        <Layer machine_code="centerlines" version="1.0" geom_type="Linestring">
             <Label>Active Channel Lines</Label>
             <Symbology>centerlines.qml</Symbology>
             <Description>Centerlines of the Active Channel</Description>
@@ -95,14 +97,14 @@
                 <HierarchyItem>Channel</HierarchyItem>
             </Hierarchy>
             <Fields>
-                <Field machineCode="type_id" version="1.0" type="list">
+                <Field machine_code="type_id" version="1.0" type="list">
                     <Label>Type</Label>
                     <LookupValues>
                         <LookupValue>Primary</LookupValue>
                         <LookupValue>Non-Primary</LookupValue>
                     </LookupValues>
                 </Field>
-                <Field machineCode="description" version="1.0" type="list">
+                <Field machine_code="description" version="1.0" type="list">
                     <Label>Description</Label>
                     <DefaultValue>Centerline</DefaultValue>
                     <LookupValues>
@@ -112,7 +114,7 @@
                 </Field>    
             </Fields>
         </Layer>
-        <Layer machineCode="inundation_extents" version="1.0" geom_type="Polygon">
+        <Layer machine_code="inundation_extents" version="1.0" geom_type="Polygon">
             <Label>Inundation Extents</Label>
             <Symbology>inundation_extents.qml</Symbology>
             <Description>Inundation Extents Layer</Description>
@@ -121,7 +123,7 @@
                 <HierarchyItem>Hydraulic Mapping</HierarchyItem>
             </Hierarchy>    
             <Fields>
-                <Field machineCode="type_id" version="1.0" type="list">
+                <Field machine_code="type_id" version="1.0" type="list">
                     <Label>Extent Type</Label>
                     <LookupValues>
                         <LookupValue>Free Flowing</LookupValue>
@@ -231,20 +233,19 @@
                 </Field>
             </Fields>
         </Layer>
-        "fields": [{"machine_code": "sem_stage", "label": "SEM Stage", "type": "list", "lookup": "sem_stages"}]
-        <Layer machineCode="cem_phases" version="1.0" geom_type="Polygon">
+        <Layer machine_code="cem_phases" version="1.0" geom_type="Polygon">
             <Label>SEM Cluer &amp; Thorne</Label>
             <Symbology>cem_phases.qml</Symbology>
             <Description>SEM Cluer &amp; Thorne Layer</Description>
+            <MenuItems>
+                <MenuItem>Copy_From_Valley_Bottom</MenuItem>
+            </MenuItems>
             <Hierarchy>
                 <HierarchyItem>Assessments</HierarchyItem>
                 <HierarchyItem>Geomorphic Condition</HierarchyItem>
             </Hierarchy>
-            <MenuItems>
-                <MenuItem>Copy_From_Valley_Bottom</MenuItem>
-            </MenuItems>
             <Fields>
-                <Field machineCode="sem_stage" version="1.0" type="list">
+                <Field machine_code="sem_stage" version="1.0" type="list">
                     <Label>SEM Stage</Label>
                     <LookupValues>
                         <LookupValue>0 Anastomosing</LookupValue>
@@ -499,12 +500,12 @@
             <Label>Observation Points</Label>
             <Symbology>observation_points.qml</Symbology>
             <Description>Observation Points Layer</Description>
-            <Hierarchy>
-                <HierarchyItem>Observations</HierarchyItem>
-            </Hierarchy>
             <MenuItems>
                 <MenuItem>import_photos</MenuItem>
             </MenuItems>
+            <Hierarchy>
+                <HierarchyItem>Observations</HierarchyItem>
+            </Hierarchy>
             <Fields>
                 <Field machine_code="observation_point_type" version="1.0" type="list">
                     <Label>Observation Type</Label>
@@ -583,43 +584,34 @@ beaver_sign	Beaver Sign	beaver_sign.qml	0	Point		{"hierarchy": ["Observations", 
     </Layers>
     <Metrics>
         <!-- https://qris.riverscapes.net/technical-reference/metric_calculations/-->
-        <Metric>
-            <MachineName>JamDensity</MachineName>
-            <VersionNumber>1.0</VersionNumber>
-            <CalculationID>1234</CalculationID>
-            <DefaultLevelID>1/2</DefaultLevelID><!--Metric or Indicator>-->
-            <Name>Jam Density</Name>
+        <Metric machine_code="JamDensity" version="1.0" calculation_machine_code="count">
+            <Label>Jam Density</Label>
+            <DefaultLevel>Metric</DefaultLevel><!--Metric or Indicator>-->
             <Description/>
             <DefinitionURL/>
-            <Normalization>None|Centerline|DEM|ValleyBottom</Normalization>
-            <Surfaces>DEM</Surfaces>
-            <Usage>Denominator|AreaProportion</Usage>
-            <Layers>
-                <Layer machineCode="Layer1MachineCode">
-                    <CoundField></CoundField><!-- only for count types metrics-->
-                    <AttributeFilter field="GeomorphicUnitType">
-                        <Value>Pool</Value>
-                        <Value>Mid Channel Bar</Value>
-                    </AttributeFilter>
-                </Layer>
-                <Layer>Layer2MachineCode</Layer>
-            </Layers>
-            <Minimum>0</Minimum>
-            <Maximum>1000</Maximum>
+            <MinimumValue>0</MinimumValue>
+            <MaximumValue>1000</MaximumValue>
             <Precision>3</Precision>
             <Parameters>
+                <Inputs> <!-- This is a change from the original format. Surfaces and "Normalization" is now an input -->
+                    <Input machine_code_reference="centerline">
+                        <Usage>Normalization</Usage>
+                    </Input>
+                    <Input machine_code_reference="dem">
+                        <Usage>Surface</Usage>
+                    </Input>
+                </Inputs>
+                <DCELayers>
+                    <DCELayer machine_code_reference="Layer1MachineCode">
+                        <Usage>Denominator</Usage>
+                        <CountField></CountField><!-- only for count types metrics-->
+                        <AttributeFilter field="GeomorphicUnitType">
+                            <Value>Pool</Value>
+                            <Value>Mid Channel Bar</Value>
+                        </AttributeFilter>
+                    </DCELayer>
+                </DCELayers>
             </Parameters>
-            <MetaData>
-                <MetaDataItem>
-                    <Name>Metadata1</Name>
-                    <Value>Value1</Value>
-                </MetaDataItem>
-                <MetaDataItem>
-                    <Name>Metadata2</Name>
-                    <Value>Value2</Value>
-                </MetaDataItem>
-            </MetaData>
-
         </Metric>
     </Metrics>
 </Protocol>
