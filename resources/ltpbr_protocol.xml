@@ -1,0 +1,625 @@
+<Protocol machine_code="LTPBR_BASE" version="1.0" status="experimental">
+    <Label>LTPBR Protocol</Label>
+    <Description>Base LTPBR Layers</Description>
+    <URL>https://lowtechpbr.restoration.usu.edu/</URL>
+    <Citation> Wheaton J.M., Bennett S.N., Bouwes, N., Maestas J.D. and Shahverdian S.M. (Editors). 2019. Low-Tech Process-Based Restoration of Riverscapes: Design Manual. Version 1.0. Utah State University Restoration Consortium. Logan, UT. 286 pp. DOI: 10.13140/RG.2.2.19590.63049/2.</Citation>
+    <Author>Nick Weber</Author>
+    <CreationDate>2024-09-01</CreationDate>
+    <UpdatedDate>2024-09-01</UpdatedDate>
+    <Metadata>
+        <MetadataItem>
+            <Name>My Meta</Name>
+            <Value>Data</Value>
+        </MetadataItem>
+    </Metadata>
+    <Layers>
+        <Layer machineCode="dam_crests" version="1.0" geom_type="Linestring">
+            <Label>Dam Crests</Label>
+            <Symbology>beaver_dams.qml</Symbology>
+            <Description>Dam Crests Layer</Description>
+            <Hierarchy>
+                <HierarchyItem>Assessments</HierarchyItem>
+                <HierarchyItem>Beaver Dam Building</HierarchyItem>
+            </Hierarchy>
+            <Fields>
+                <Field machineCode="structure_source_id" version="1.0" type="list">
+                    <Label>Structure Source</Label>
+                    <LookupValues>
+                        <LookupValue>Artificial</LookupValue>
+                        <LookupValue>Natural</LookupValue>
+                        <LookupValue>Unknown</LookupValue>
+                    </LookupValues>
+                </Field>
+                <Field machine_code="dam_state" version="1.0" type="list">
+                    <Label>Dam State</Label>
+                    <LookupValues>
+                        <LookupValue>Blown Out</LookupValue>
+                        <LookupValue>Breached</LookupValue>
+                        <LookupValue>Intact</LookupValue>
+                    </LookupValues>              
+                </Field>
+                <Field machine_code="crest_type" version="1.0" type="list">
+                    <Label>Crest Type</Label>
+                    <LookupValues>
+                        <LookupValue>Active</LookupValue>
+                        <LookupValue>Inactive</LookupValue>
+                    </LookupValues>
+                </Field>
+                <Field machine_code="confidence" version="1.0" type="list">
+                    <Label>Confidence</Label>
+                    <LookupValues>
+                        <LookupValue>High</LookupValue>
+                        <LookupValue>Medium</LookupValue>
+                        <LookupValue>Low</LookupValue>
+                    </LookupValues>
+                </Field>
+        <Layer machineCode="active_channel" version="1.0" geom_type="Polygon">
+            <Label>Active Channel</Label>
+            <Symbology>active_channels.qml</Symbology>
+            <Description>Active Channel Layer</Description>
+            <Hierarchy>
+                <HierarchyItem>Observations</HierarchyItem>
+                <HierarchyItem>Geomorphic Mapping</HierarchyItem>
+                <HierarchyItem>Channel</HierarchyItem>
+            </Hierarchy>
+        </Layer>
+        <Layer machineCode="active_extents" version="1.0" geom_type="Polygon">
+            <Label>Active Extents</Label>
+            <Symbology>active_extents.qml</Symbology>
+            <Description>Active Extents Layer</Description>
+            <MenuItems>
+                <MenuItem>Copy_From_Valley_Bottom</MenuItem>
+            </MenuItems>
+            <Hierarchy>
+                <HierarchyItem>Observations</HierarchyItem>
+                <HierarchyItem>Geomorphic Mapping</HierarchyItem>
+                <HierarchyItem>Floodplain</HierarchyItem>
+            </Hierarchy>
+            <Fields>
+                <Field machineCode="type_id" version="1.0" type="list">
+                    <Label>Type</Label>
+                    <LookupValues>
+                        <LookupValue>Active</LookupValue>
+                        <LookupValue>Inactive</LookupValue>
+                    </LookupValues>
+                </Field>
+            </Fields>
+        </Layer>
+        <Layer machineCode="centerlines" version="1.0" geom_type="Linestring">
+            <Label>Active Channel Lines</Label>
+            <Symbology>centerlines.qml</Symbology>
+            <Description>Centerlines of the Active Channel</Description>
+            <Hierarchy>
+                <HierarchyItem>Observations</HierarchyItem>
+                <HierarchyItem>Geomorphic Mapping</HierarchyItem>
+                <HierarchyItem>Channel</HierarchyItem>
+            </Hierarchy>
+            <Fields>
+                <Field machineCode="type_id" version="1.0" type="list">
+                    <Label>Type</Label>
+                    <LookupValues>
+                        <LookupValue>Primary</LookupValue>
+                        <LookupValue>Non-Primary</LookupValue>
+                    </LookupValues>
+                </Field>
+                <Field machineCode="description" version="1.0" type="list">
+                    <Label>Description</Label>
+                    <DefaultValue>Centerline</DefaultValue>
+                    <LookupValues>
+                        <LookupValue>Centerline</LookupValue>
+                        <LookupValue>Thalweg</LookupValue>
+                    </LookupValues>
+                </Field>    
+            </Fields>
+        </Layer>
+        <Layer machineCode="inundation_extents" version="1.0" geom_type="Polygon">
+            <Label>Inundation Extents</Label>
+            <Symbology>inundation_extents.qml</Symbology>
+            <Description>Inundation Extents Layer</Description>
+            <Hierarchy>
+                <HierarchyItem>Observations</HierarchyItem>
+                <HierarchyItem>Hydraulic Mapping</HierarchyItem>
+            </Hierarchy>    
+            <Fields>
+                <Field machineCode="type_id" version="1.0" type="list">
+                    <Label>Extent Type</Label>
+                    <LookupValues>
+                        <LookupValue>Free Flowing</LookupValue>
+                        <LookupValue>Overflow</LookupValue>
+                        <LookupValue>Ponded</LookupValue>
+                    </LookupValues>
+                </Field>
+            </Fields>
+        </Layer>
+        <Layer machine_code="channel_junctions" version="1.0" geom_type="Point">
+            <Label>Channel Junctions</Label>
+            <Symbology>channel_junctions.qml</Symbology>
+            <Description>Channel Junctions Layer</Description>
+            <Hierarchy>
+                <HierarchyItem>Observations</HierarchyItem>
+                <HierarchyItem>Geomorphic Mapping</HierarchyItem>
+                <HierarchyItem>Channel</HierarchyItem>
+            </Hierarchy>
+            <Fields>
+                <Field machine_code="junction_type" version="1.0" type="list">
+                    <Label>Type</Label>
+                    <LookupValues>
+                        <LookupValue>Channel Head</LookupValue>
+                        <LookupValue>Confluence (Anabranch)</LookupValue>
+                        <LookupValue>Confluence (Tributary)</LookupValue>
+                        <LookupValue>Diffluence</LookupValue>
+                    </LookupValues>
+                </Field>
+            </Fields>
+        </Layer>
+        <Layer machine_code="geomorphic_unit_extents" version="1.0" geom_type="Polygon">
+            <Label>Geomporhpic Units Extents</Label>
+            <Symbology>geomorphic_unit_extents.qml</Symbology>
+            <Description>Geomporhpic Units Extents Layer</Description>
+            <Hierarchy>
+                <HierarchyItem>Observations</HierarchyItem>
+                <HierarchyItem>Geomorphic Mapping</HierarchyItem>
+                <HierarchyItem>Channel</HierarchyItem>
+            </Hierarchy>
+            <Fields>
+                <Field machine_code="geomorphic_unit_type" version="1.0" type="list" value_required="true">
+                    <Label>Type</Label>
+                    <LookupValues>
+                        <LookupValue>Bank Attached Bar</LookupValue>
+                        <LookupValue>Chute</LookupValue>
+                        <LookupValue>Glide/Run</LookupValue>
+                        <LookupValue>Mid Channel Bar</LookupValue>
+                        <LookupValue>Pond</LookupValue>
+                        <LookupValue>Pool</LookupValue>
+                        <LookupValue>Rapid</LookupValue>
+                        <LookupValue>Riffle</LookupValue>
+                    </LookupValues>
+                </Field>
+                <Field machine_code="geomorphic_unit_type_2_tier" version="1.0" type="list">
+                    <Label>Type 2 Tier</Label>
+                    <LookupValues>
+                        <LookupValue>Bowl</LookupValue>
+                        <LookupValue>Mound</LookupValue>
+                        <LookupValue>Plane</LookupValue>
+                        <LookupValue>Saddle</LookupValue>
+                        <LookupValue>Trough</LookupValue>
+                    </LookupValues>
+                </Field>
+            </Fields>
+        </Layer>
+        <Layer machine_code="geomorphic_units" version="1.0" geom_type="Point">
+            <Label>Geomorphic Unit Points</Label>
+            <Symbology>geomorphic_units.qml</Symbology>
+            <Description>Geomorphic Unit Points Layer</Description>
+            <Hierarchy>
+                <HierarchyItem>Observations</HierarchyItem>
+                <HierarchyItem>Geomorphic Mapping</HierarchyItem>
+                <HierarchyItem>Channel</HierarchyItem>
+            </Hierarchy>
+            <Fields>
+                <Field machine_code="geomorphic_unit_type" version="1.0" type="list" value_required="true">
+                    <Label>Type</Label>
+                    <LookupValues>
+                        <LookupValue>Bank Attached Bar</LookupValue>
+                        <LookupValue>Chute</LookupValue>
+                        <LookupValue>Glide/Run</LookupValue>
+                        <LookupValue>Mid Channel Bar</LookupValue>
+                        <LookupValue>Pond</LookupValue>
+                        <LookupValue>Pool</LookupValue>
+                        <LookupValue>Rapid</LookupValue>
+                        <LookupValue>Riffle</LookupValue>
+                    </LookupValues>
+                </Field>
+                <Field machine_code="geomorphic_unit_type_2_tier" version="1.0" type="list">
+                    <Label>Type 2 Tier</Label>
+                    <LookupValues>
+                        <LookupValue>Bowl</LookupValue>
+                        <LookupValue>Mound</LookupValue>
+                        <LookupValue>Plane</LookupValue>
+                        <LookupValue>Saddle</LookupValue>
+                        <LookupValue>Trough</LookupValue>
+                    </LookupValues>
+                </Field>
+                <Field machine_code="length" version="1.0" type="float">
+                    <Label>Length</Label>               
+                </Field>
+                <Field machine_code="width" version="1.0" type="float">
+                    <Label>Width</Label>
+                </Field>
+                <Field machine_code="depth" version="1.0" type="float">
+                    <Label>Depth</Label>
+                </Field>
+            </Fields>
+        </Layer>
+        "fields": [{"machine_code": "sem_stage", "label": "SEM Stage", "type": "list", "lookup": "sem_stages"}]
+        <Layer machineCode="cem_phases" version="1.0" geom_type="Polygon">
+            <Label>SEM Cluer &amp; Thorne</Label>
+            <Symbology>cem_phases.qml</Symbology>
+            <Description>SEM Cluer &amp; Thorne Layer</Description>
+            <Hierarchy>
+                <HierarchyItem>Assessments</HierarchyItem>
+                <HierarchyItem>Geomorphic Condition</HierarchyItem>
+            </Hierarchy>
+            <MenuItems>
+                <MenuItem>Copy_From_Valley_Bottom</MenuItem>
+            </MenuItems>
+            <Fields>
+                <Field machineCode="sem_stage" version="1.0" type="list">
+                    <Label>SEM Stage</Label>
+                    <LookupValues>
+                        <LookupValue>0 Anastomosing</LookupValue>
+                        <LookupValue>1 Sinuous Single Thread</LookupValue>
+                        <LookupValue>2 Channelized</LookupValue>
+                        <LookupValue>3 Degradation</LookupValue>
+                        <LookupValue>4 Degradation and Widening</LookupValue>
+                        <LookupValue>5 Aggradation and Widening</LookupValue>
+                        <LookupValue>6 Quasi Equilibrium</LookupValue>
+                        <LookupValue>7 Laterally Active</LookupValue>
+                        <LookupValue>8 Anastomosing</LookupValue>
+                    </LookupValues>
+                </Field>
+            </Fields>
+        </Layer>
+        <Layer machine_code="vegetation_extents" version="1.0" geom_type="Polygon">
+            <Label>Vegetation Extents</Label>
+            <Symbology>vegetation_extents.qml</Symbology>
+            <Description>Vegetation Extents Layer</Description>
+            <Hierarchy>
+                <HierarchyItem>Observations</HierarchyItem>
+                <HierarchyItem>Vegetation Mapping</HierarchyItem>
+            </Hierarchy>
+            <Fields>
+                <Field machine_code="vegetation_type" version="1.0" type="list">
+                    <Label>Type</Label>
+                    <LookupValues>
+                        <LookupValue>Riparian</LookupValue>
+                        <LookupValue>Non-Riparian</LookupValue>
+                    </LookupValues>
+                </Field>
+                <Field machine_code="vegetation_tier_2_type" version="1.0" type="list">
+                    <Label>Type 2 Tier</Label>
+                    <LookupValues allow_custom_values="true">
+                        <LookupValue>Emergent Riparian</LookupValue>
+                        <LookupValue>Woody Riparian</LookupValue>
+                    </LookupValues>
+                </Field>
+                <Field machine_code="suitability" version="1.0" type="list">
+                    <Label>Brat Suitability</Label>
+                    <LookupValues>
+                        <LookupValue>Preferred</LookupValue>
+                        <LookupValue>Suitable</LookupValue>
+                        <LookupValue>Moderately Suitable</LookupValue>
+                        <LookupValue>Barely Suitable</LookupValue>
+                        <LookupValue>Unsuitable</LookupValue>
+                    </LookupValues>
+                </Field>
+            </Fields>
+        </Layer>
+        <Layer machine_code="zoi" version="1.0" geom_type="Polygon">
+            <Label>Zones of Influence</Label>
+            <Symbology>zoi.qml</Symbology>
+            <Description>Zones of Influence Layer</Description>
+            <Fields>
+                <Field machine_code="zoi_type" version="1.0" type="list">
+                    <Label>ZOI Type</Label>
+                    <LookupValues>
+                        <LookupValue>Complex: Headcut Arrest</LookupValue>
+                        <LookupValue>Complex: Increase Channel Complexity</LookupValue>
+                        <LookupValue>Complex: Increase Floodplain Connectivity</LookupValue>
+                        <LookupValue>Complex: Lateral Channel Migration</LookupValue>
+                        <LookupValue>Complex: Overbank Flow Dispersal</LookupValue>
+                        <LookupValue>Complex: Pond/Wetland Creation</LookupValue>
+                        <LookupValue>Complex: Riparian/Wetland Expansion</LookupValue>
+                        <LookupValue>Complex: Side-Channel Connection</LookupValue>
+                        <LookupValue>Complex: Widening and Aggradation</LookupValue>
+                        <LookupValue>Structure: Geomorphic - Deposition in upstream backwater</LookupValue>
+                        <LookupValue>Structure: Geomorphic - Deposition of bar</LookupValue>
+                        <LookupValue>Structure: Geomorphic - Deposition overbank</LookupValue>
+                        <LookupValue>Structure: Geomorphic - Erode Bank</LookupValue>
+                        <LookupValue>Structure: Geomorphic - Erosion from convergent jet</LookupValue>
+                        <LookupValue>Structure: Geomorphic - Erosion from plunge</LookupValue>
+                        <LookupValue>Structure: Geomorphic - Erosion from return flow headcut</LookupValue>
+                        <LookupValue>Structure: Geomorphic - Erosion of bar edge</LookupValue>
+                        <LookupValue>Structure: Hydraulic - Constriction Jet</LookupValue>
+                        <LookupValue>Structure: Hydraulic - Divergent Flow</LookupValue>
+                        <LookupValue>Structure: Hydraulic - Eddy</LookupValue>
+                        <LookupValue>Structure: Hydraulic - Overflow</LookupValue>
+                        <LookupValue>Structure: Hydraulic - Ponding Flow</LookupValue>
+                        <LookupValue>Structure: Hydraulic - Shunting Flow</LookupValue>
+                        <LookupValue>Structure: Hydraulic - Splitting Flow</LookupValue>
+                        <LookupValue>Structure: Scout Pool Formation</LookupValue>
+                    </LookupValues>
+                </Field>
+                <Field machine_code="zoi_stage" version="1.0" type="list">
+                    <Label>Stage</Label>
+                    <LookupValues>
+                        <LookupValue>Baseflow</LookupValue>
+                        <LookupValue>Typical Flood</LookupValue>
+                        <LookupValue>Large Flood</LookupValue>
+                        <LookupValue>Other</LookupValue>
+                    </LookupValues>
+                </Field>
+            </Fields>
+        </Layer>
+        <Layer machine_code="complexes" version="1.0" geom_type="Point">
+            <Label>Structure Complex Extents</Label>
+            <Symbology>complexes.qml</Symbology>
+            <Description>Structure Complex Extents Layer</Description>
+            <Hierarchy>
+                <HierarchyItem>Structures</HierarchyItem>
+            </Hierarchy>
+        </Layer>
+        <Layer machine_code="structure_points" version="1.0" geom_type="Point">
+            <Label>Structure Points</Label>
+            <Symbology>structure_points.qml</Symbology>
+            <Description>Structure Points Layer</Description>
+            <Hierarchy>
+                <HierarchyItem>Structures</HierarchyItem>
+            </Hierarchy>
+            <Fields>
+                <Field machine_code="structure_type" version="1.0" type="list">
+                    <Label>Structure Type</Label>
+                    <LookupValues>
+                        <LookupValue>ALS</LookupValue>
+                        <LookupValue>ALS - Bank Attached</LookupValue>
+                        <LookupValue>ALS - Bank Blaster</LookupValue>
+                        <LookupValue>ALS - Channel Spanning</LookupValue>
+                        <LookupValue>ALS - Rhino</LookupValue>
+                        <LookupValue>BDA</LookupValue>
+                        <LookupValue>BDA Postless</LookupValue>
+                        <LookupValue>Bag Plugs</LookupValue>
+                        <LookupValue>Fell Tree</LookupValue>
+                        <LookupValue>Floodplain BDA</LookupValue>
+                        <LookupValue>Floodplain LWD</LookupValue>
+                        <LookupValue>Full Tree</LookupValue>
+                        <LookupValue>Grip Hoist Tree</LookupValue>
+                        <LookupValue>Headcut Treatment</LookupValue>
+                        <LookupValue>Leaky Dam</LookupValue>
+                        <LookupValue>One Rock Dam</LookupValue>
+                        <LookupValue>PALS</LookupValue>
+                        <LookupValue>PALS - Bank Attached</LookupValue>
+                        <LookupValue>PALS - Bank Blaster</LookupValue>
+                        <LookupValue>PALS - Channel Spanning</LookupValue>
+                        <LookupValue>PALS - Constriction Jet</LookupValue>
+                        <LookupValue>PALS - Left Bank Attached</LookupValue>
+                        <LookupValue>PALS - Mid Channel</LookupValue>
+                        <LookupValue>PALS - Rhino</LookupValue>
+                        <LookupValue>PALS - Right Bank Attached</LookupValue>
+                        <LookupValue>Post and Brush Plug</LookupValue>
+                        <LookupValue>Postline Wicker Weave</LookupValue>
+                        <LookupValue>Primary BDA</LookupValue>
+                        <LookupValue>Rhino</LookupValue>
+                        <LookupValue>Secondary BDA</LookupValue>
+                        <LookupValue>Sedge Plugs</LookupValue>
+                        <LookupValue>Spreaders</LookupValue>
+                        <LookupValue>Strategic Felling</LookupValue>
+                        <LookupValue>Tight PALS (BDA without sod)</LookupValue>
+                        <LookupValue>Tree Dam</LookupValue>
+                        <LookupValue>Tree Plug</LookupValue>
+                        <LookupValue>Vanes</LookupValue>
+                        <LookupValue>Wicker Weirs</LookupValue>
+                        <LookupValue>Wood Jam</LookupValue>
+                        <LookupValue>Zuni Bowl</LookupValue>
+                    </LookupValues>
+                </Field>
+            </Fields>
+        </Layer>
+        <Layer machine_code="structure_lines" version="1.0" geom_type="Linestring">
+            <Label>Structure Lines</Label>
+            <Symbology>structure_lines.qml</Symbology>
+            <Description>Structure Lines Layer</Description>
+            <Hierarchy>
+                <HierarchyItem>Structures</HierarchyItem>
+            </Hierarchy>
+            <Fields>
+                <Field machine_code="structure_type" version="1.0" type="list">
+                    <Label>Structure Type</Label>
+                    <LookupValues>
+                        <LookupValue>ALS</LookupValue>
+                        <LookupValue>ALS - Bank Attached</LookupValue>
+                        <LookupValue>ALS - Bank Blaster</LookupValue>
+                        <LookupValue>ALS - Channel Spanning</LookupValue>
+                        <LookupValue>ALS - Rhino</LookupValue>
+                        <LookupValue>BDA</LookupValue>
+                        <LookupValue>BDA Postless</LookupValue>
+                        <LookupValue>Bag Plugs</LookupValue>
+                        <LookupValue>Fell Tree</LookupValue>
+                        <LookupValue>Floodplain BDA</LookupValue>
+                        <LookupValue>Floodplain LWD</LookupValue>
+                        <LookupValue>Full Tree</LookupValue>
+                        <LookupValue>Grip Hoist Tree</LookupValue>
+                        <LookupValue>Headcut Treatment</LookupValue>
+                        <LookupValue>Leaky Dam</LookupValue>
+                        <LookupValue>One Rock Dam</LookupValue>
+                        <LookupValue>PALS</LookupValue>
+                        <LookupValue>PALS - Bank Attached</LookupValue>
+                        <LookupValue>PALS - Bank Blaster</LookupValue>
+                        <LookupValue>PALS - Channel Spanning</LookupValue>
+                        <LookupValue>PALS - Constriction Jet</LookupValue>
+                        <LookupValue>PALS - Left Bank Attached</LookupValue>
+                        <LookupValue>PALS - Mid Channel</LookupValue>
+                        <LookupValue>PALS - Rhino</LookupValue>
+                        <LookupValue>PALS - Right Bank Attached</LookupValue>
+                        <LookupValue>Post and Brush Plug</LookupValue>
+                        <LookupValue>Postline Wicker Weave</LookupValue>
+                        <LookupValue>Primary BDA</LookupValue>
+                        <LookupValue>Rhino</LookupValue>
+                        <LookupValue>Secondary BDA</LookupValue>
+                        <LookupValue>Sedge Plugs</LookupValue>
+                        <LookupValue>Spreaders</LookupValue>
+                        <LookupValue>Strategic Felling</LookupValue>
+                        <LookupValue>Tight PALS (BDA without sod)</LookupValue>
+                        <LookupValue>Tree Dam</LookupValue>
+                        <LookupValue>Tree Plug</LookupValue>
+                        <LookupValue>Vanes</LookupValue>
+                        <LookupValue>Wicker Weirs</LookupValue>
+                        <LookupValue>Wood Jam</LookupValue>
+                        <LookupValue>Zuni Bowl</LookupValue>
+                    </LookupValues>
+                </Field>
+            </Fields>
+        </Layer>
+        <!-- <Layer machine_code="brat_cis" version="1.0" geom_type="Point">
+            <Label>BRAT CIS</Label>
+            <Symbology>brat_cis.qml</Symbology>
+            <Description>BRAT CIS Layer</Description>
+            <Hierarchy>
+                <HierarchyItem>Assessments</HierarchyItem>
+                <HierarchyItem>Beaver Dam Building</HierarchyItem>
+            </Hierarchy>
+            <MenuItems>
+                <MenuItem>export_brat</MenuItem>
+            </MenuItems>
+            <Fields>
+                <Field machine_code="streamside_vegetation" version="1.0" type="text">
+                    <Label>Streamside Vegetation Suitability</Label>
+                </Field>
+                <Field machine_code="riparian_vegetation" version="1.0" type="text">
+                    <Label>Riparian/Upland Vegetation Suitability</Label>
+                </Field>
+                <Field machine_code="dam_capacity" version="1.0" type="text">
+                    <Label>Dam Capacity</Label>
+                </Field>
+            </Fields>
+        </Layer>
+        <Layer machine_code="brat_cis_reaches" version="1.0" geom_type="Linestring">
+            <Label>BRAT CIS Reaches</Label>
+            <Symbology>brat_cis_reaches.qml</Symbology>
+            <Description>BRAT CIS Reaches Layer</Description>
+            <Hierarchy>
+                <HierarchyItem>Assessments</HierarchyItem>
+                <HierarchyItem>Beaver Dam Building</HierarchyItem>
+            </Hierarchy>
+            <MenuItems>
+                <MenuItem>export_brat</MenuItem>
+                <MenuItem>import_brat_reaches</MenuItem>
+            </MenuItems>
+        </Layer> -->
+        <Layer machine_code="observation_points" version="1.0" geom_type="Point">
+            <Label>Observation Points</Label>
+            <Symbology>observation_points.qml</Symbology>
+            <Description>Observation Points Layer</Description>
+            <Hierarchy>
+                <HierarchyItem>Observations</HierarchyItem>
+            </Hierarchy>
+            <MenuItems>
+                <MenuItem>import_photos</MenuItem>
+            </MenuItems>
+            <Fields>
+                <Field machine_code="observation_point_type" version="1.0" type="list">
+                    <Label>Observation Type</Label>
+                    <LookupValues>
+                        <LookupValue>Building Materials</LookupValue>
+                        <LookupValue>Caution</LookupValue>
+                        <LookupValue>Design Consideration</LookupValue>
+                        <LookupValue>Logistics</LookupValue>
+                        <LookupValue>Riverscape Feature</LookupValue>
+                        <LookupValue>Photo Observation</LookupValue>
+                        <LookupValue>Other</LookupValue>
+                    </LookupValues>
+                </Field>
+                <Field machine_code="photo_path" version="1.0" type="attachment">
+                    <Label>Photo Path</Label>
+                </Field>
+            </Fields>
+        </Layer>
+        <Layer machine_code="observation_polygons" version="1.0" geom_type="Polygon">
+            <Label>Observation Polygons</Label>
+            <Symbology>observation_polygons.qml</Symbology>
+            <Description>Observation Polygons Layer</Description>
+            <Hierarchy>
+                <HierarchyItem>Observations</HierarchyItem>
+            </Hierarchy>
+            <Fields>
+                <Field machine_code="observation_polygon_type" version="1.0" type="list">
+                    <Label>Observation Type</Label>
+                    <LookupValues>
+                        <LookupValue>Caution</LookupValue>
+                        <LookupValue>Logistics</LookupValue>
+                        <LookupValue>Riverscape Feature</LookupValue>
+                        <LookupValue>Road</LookupValue>
+                        <LookupValue>Other</LookupValue>
+                    </LookupValues>
+                </Field>
+            </Fields>
+        </Layer>
+        <Layer machine_code="observation_lines" version="1.0" geom_type="Linestring">
+            <Label>Observation Lines</Label>
+            <Symbology>observation_lines.qml</Symbology>
+            <Description>Observation Lines Layer</Description>
+            <Hierarchy>
+                <HierarchyItem>Observations</HierarchyItem>
+            </Hierarchy>
+            <Fields>
+                <Field machine_code="observation_line_type" version="1.0" type="list">
+                    <Label>Observation Type</Label>
+                    <LookupValues>
+                        <LookupValue>Building Materials</LookupValue>
+                        <LookupValue>Caution</LookupValue>
+                        <LookupValue>Infrastructure</LookupValue>
+                        <LookupValue>Logistics</LookupValue>
+                        <LookupValue>Other</LookupValue>
+                    </LookupValues>
+                </Field>
+            </Fields>
+        </Layer>
+observation_points_dce	Observations	observation_points_dce.qml	0	Point		{"hierarchy": ["Observations", "Other"], "fields": [{"machine_code": "photo_path", "label": "Photo Path", "type": "attachment"}], "menu_items": ["import_photos"]}
+
+
+
+
+observation_lines_dce	Observations	observation_lines_dce.qml	0	Linestring		{"hierarchy": ["Observations", "Other"]}
+observation_polygons_dce	Observations	observation_polygons_dce.qml	0	Polygon		{"hierarchy": ["Observations", "Other"]}
+structural_elements_points	Structural Elements	structural_elements_points.qml	0	Point		{"hierarchy": ["Observations", "Structural Elements"], "fields": [{"machine_code": "structural_element_type", "label": "Type", "type": "list", "lookup": "structural_element_points"}, {"machine_code": "structure_count", "label": "Structure Count", "type": "integer", "default": 1, "visibility": {"field_name": "structural_element_type", "values": ["Dam Complex", "Jam Complex"]}}, {"machine_code": "length", "label": "Length", "type": "float", "visibility": {"field_name": "structural_element_type", "values": ["Dam", "Jam", "Other", "Root Mass"]}}, {"machine_code": "width", "label": "Width", "type": "float", "visibility": {"field_name": "structural_element_type", "values": ["Dam", "Jam", "Other", "Root Mass"]}}, {"machine_code": "height", "label": "Height", "type": "float", "visibility": {"field_name": "structural_element_type", "values": ["Dam", "Jam", "Root Mass", "Other"]}}, {"machine_code": "large_wood_count", "label": "Large Wood Count", "type": "integer"}]}
+structural_elements_lines	Structural Elements	structural_elements_lines.qml	0	Linestring		{"hierarchy": ["Observations", "Structural Elements"], "fields": [{"machine_code": "structural_element_type", "label": "Type", "type": "list", "lookup": "structural_element_lines"}]}
+structural_elements_areas	Structural Elements	structural_elements_areas.qml	0	Polygon		{"hierarchy": ["Observations", "Structural Elements"], "fields": [{"machine_code": "structural_element_type", "label": "Type", "type": "list", "lookup": "structural_element_areas"}, {"machine_code": "large_wood_count", "label": "Large Wood Count", "type": "integer"}]}
+observation_points_asbuilt	Observations	observation_points_asbuilt.qml	0	Point		{"hierarchy": ["Observations"], "fields": [{"machine_code": "photo_path", "label": "Photo Path", "type": "attachment"}]}
+recovery_potential	Recovery Potential	recovery_potential.qml	0	Polygon		{"hierarchy": ["Assessments"], "menu_items": ["copy_from_valley_bottom"]}
+risk_potential_points	Risk Potential	risk_potential_points.qml	0	Point		{"hierarchy": ["Assessments", "Risk Potential"], "fields": [{"machine_code": "risk_type", "label": "Risk", "type": "list", "lookup": "risk_type"}, {"machine_code": "risk_type_source", "label": "Type", "type": "list", "lookup": "risk_type_source_points", "allow_custom_values": "true"}]}
+risk_potential_lines	Risk Potential	risk_potential_lines.qml	0	Linestring		{"hierarchy": ["Assessments", "Risk Potential"], "fields": [{"machine_code": "risk_type", "label": "Risk", "type": "list", "lookup": "risk_type"}, {"machine_code": "risk_type_source", "label": "Type", "type": "list", "lookup": "risk_type_source_lines", "allow_custom_values": "true"}]}
+risk_potential_polygons	Risk Potential	risk_potential_polygons.qml	0	Polygon		{"hierarchy": ["Assessments", "Risk Potential"], "fields": [{"machine_code": "risk_type", "label": "Risk", "type": "list", "lookup": "risk_type"}, {"machine_code": "risk_type_source", "label": "Type", "type": "list", "lookup": "risk_type_source_polygons", "allow_custom_values": "true"}]}
+beaver_dam	Beaver Dam	beaver_dam.qml	0	Point		{"hierarchy": ["Observations", "Beaver Activity"], "fields": [{"machine_code": "dam_cer", "label": "Dam CER", "type": "list", "lookup": "dam_cer"}, {"machine_code": "dam_type", "label": "Dam Type", "type": "list", "lookup": "dam_type"}, {"machine_code": "type_cer", "label": "Type CER", "type": "list", "lookup": "type_cer"}]}
+beaver_sign	Beaver Sign	beaver_sign.qml	0	Point		{"hierarchy": ["Observations", "Beaver Activity"], "fields": [{"machine_code": "sign_type", "label": "Type", "type": "list", "lookup": "beaver_sign_type"}]}
+    </Layers>
+    <Metrics>
+        <!-- https://qris.riverscapes.net/technical-reference/metric_calculations/-->
+        <Metric>
+            <MachineName>JamDensity</MachineName>
+            <VersionNumber>1.0</VersionNumber>
+            <CalculationID>1234</CalculationID>
+            <DefaultLevelID>1/2</DefaultLevelID><!--Metric or Indicator>-->
+            <Name>Jam Density</Name>
+            <Description/>
+            <DefinitionURL/>
+            <Normalization>None|Centerline|DEM|ValleyBottom</Normalization>
+            <Surfaces>DEM</Surfaces>
+            <Usage>Denominator|AreaProportion</Usage>
+            <Layers>
+                <Layer machineCode="Layer1MachineCode">
+                    <CoundField></CoundField><!-- only for count types metrics-->
+                    <AttributeFilter field="GeomorphicUnitType">
+                        <Value>Pool</Value>
+                        <Value>Mid Channel Bar</Value>
+                    </AttributeFilter>
+                </Layer>
+                <Layer>Layer2MachineCode</Layer>
+            </Layers>
+            <Minimum>0</Minimum>
+            <Maximum>1000</Maximum>
+            <Precision>3</Precision>
+            <Parameters>
+            </Parameters>
+            <MetaData>
+                <MetaDataItem>
+                    <Name>Metadata1</Name>
+                    <Value>Value1</Value>
+                </MetaDataItem>
+                <MetaDataItem>
+                    <Name>Metadata2</Name>
+                    <Value>Value2</Value>
+                </MetaDataItem>
+            </MetaData>
+
+        </Metric>
+    </Metrics>
+</Protocol>
