@@ -202,8 +202,8 @@
         <xs:complexContent>
             <xs:extension base="BaseFieldType">
                 <xs:sequence>
-                    <xs:element name="MinValue" type="xs:integer" minOccurs="0" maxOccurs="1"/>
-                    <xs:element name="MaxValue" type="xs:integer" minOccurs="0" maxOccurs="1"/>
+                    <xs:element name="MinimumValue" type="xs:integer" minOccurs="0" maxOccurs="1"/>
+                    <xs:element name="MaximumValue" type="xs:integer" minOccurs="0" maxOccurs="1"/>
                 </xs:sequence>
             </xs:extension>
         </xs:complexContent>
@@ -344,7 +344,7 @@
      <xs:complexType name="DCELayerType">
         <xs:sequence>
             <xs:element name="Usage" type="DCELayerUsageType" minOccurs="0" maxOccurs="1"/>
-            <xs:element name="CountField" type="xs:string" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="CountField" type="CountFieldType" minOccurs="0" maxOccurs="1"/>
             <xs:element name="AttributeFilter" type="AttributeFilterType" minOccurs="0" maxOccurs="1"/>
         </xs:sequence>
         <xs:attribute name="layer_id_ref" type="IdType" use="required"/>
@@ -356,6 +356,10 @@
             <xs:enumeration value="Numerator"/>
         </xs:restriction>
     </xs:simpleType>
+
+    <xs:complexType name="CountFieldType">
+        <xs:attribute name="field_id_ref" type="IdType" use="required"/>
+    </xs:complexType>
 
     <xs:complexType name="AttributeFilterType">
         <xs:sequence>

@@ -559,26 +559,6 @@
         </Layer>
     </Layers>
     <Metrics>
-        <Metric id="JamDensity" version="1.0" calculation_machine_code="count">
-            <Label>Jam Density</Label>
-            <DefaultLevel>Metric</DefaultLevel>
-            <Description/>
-            <DefinitionURL/>
-            <MinimumValue>0</MinimumValue>
-            <MaximumValue>1000</MaximumValue>
-            <Precision>3</Precision>
-            <Parameters>
-                <InputLayer input_ref="centerline" usage="normalization"/>
-                <InputLayer input_ref="dem" usage="surface"/>
-                <DCELayer layer_id_ref="structural_elements_points">
-                    <Usage>Denominator</Usage>
-                    <AttributeFilter field_id_ref="GeomorphicUnitType">
-                        <Value>Pool</Value>
-                        <Value>Mid Channel Bar</Value>
-                    </AttributeFilter>
-                </DCELayer>
-            </Parameters>
-        </Metric>
         <Metric id="dam_density" version="1.0" calculation_machine_code="count">
             <Label>Dam Density</Label>
             <DefaultLevel>Metric</DefaultLevel>
@@ -590,8 +570,8 @@
                 <InputLayer input_ref="centerline" usage="normalization"/>
                 <DCELayer layer_id_ref="structural_elements_points">
                     <Usage>Numerator</Usage>
-                    <CountField>Structure Count</CountField>
-                    <AttributeFilter field_id_ref="Type"><!-- Change these to the machine code. this will require code changes in the metric calculation code --> 
+                    <CountField field_id_ref="structure_count"/>
+                    <AttributeFilter field_id_ref="structural_element_type"> 
                         <Value>Dam</Value>
                         <Value>Dam Complex</Value>
                     </AttributeFilter>
@@ -617,8 +597,8 @@
             <MinimumValue>0</MinimumValue>
             <Precision>1</Precision>
             <Parameters>
-                <DCELayer layer_id_ref="channel_junctionz">
-                    <AttributeFilter field_id_ref="Type">
+                <DCELayer layer_id_ref="channel_junctions">
+                    <AttributeFilter field_id_ref="junction_type">
                         <Value>Channel Head</Value>
                     </AttributeFilter>
                 </DCELayer>
@@ -634,7 +614,7 @@
             <Parameters>
                 <InputLayer input_ref="centerline" usage="normalization"/>
                 <DCELayer layer_id_ref="channel_junctions">
-                    <AttributeFilter field_id_ref="Type">
+                    <AttributeFilter field_id_ref="junction_type">
                         <Value>Channel Head</Value>
                     </AttributeFilter>
                 </DCELayer>
@@ -649,7 +629,7 @@
             <Precision>3</Precision>
             <Parameters>
                 <DCELayer layer_id_ref="centerlines">
-                    <AttributeFilter field_id_ref="Type">
+                    <AttributeFilter field_id_ref="type_id">
                         <Value>Primary</Value>
                     </AttributeFilter>
                 </DCELayer>
@@ -664,7 +644,7 @@
             <Precision>1</Precision>
             <Parameters>
                 <DCELayer layer_id_ref="channel_junctions">
-                    <AttributeFilter field_id_ref="Type">
+                    <AttributeFilter field_id_ref="junction_type">
                         <Value>Confluence (Anabranch)</Value>
                         <Value>Confluence (Tributary)</Value>
                     </AttributeFilter>
@@ -681,26 +661,9 @@
             <Parameters>
                 <InputLayer input_ref="centerline" usage="normalization"/>
                 <DCELayer layer_id_ref="channel_junctions">
-                    <AttributeFilter field_id_ref="Type">
+                    <AttributeFilter field_id_ref="junction_type">
                         <Value>Confluence (Anabranch)</Value>
                         <Value>Confluence (Tributary)</Value>
-                    </AttributeFilter>
-                </DCELayer>
-            </Parameters>
-        </Metric>
-        <Metric id="geomorphic_unit_count" version="1.0" calculation_machine_code="count">
-            <Label>Geomorphic Unit Count</Label>
-            <DefaultLevel>Metric</DefaultLevel>
-            <Description>The number of geomorphic units in containing sample frame</Description>
-            <DefinitionURL/>
-            <MinimumValue>0</MinimumValue>
-            <Precision>1</Precision>
-            <Parameters>
-                <DCELayer layer_id_ref="geomorphic_units">
-                    <CountField>Structure Count</CountField>
-                    <AttributeFilter field_id_ref="Type">
-                        <Value>Dam</Value>
-                        <Value>Dam Complex</Value>
                     </AttributeFilter>
                 </DCELayer>
             </Parameters>
@@ -714,8 +677,8 @@
             <Precision>1</Precision>
             <Parameters>
                 <DCELayer layer_id_ref="structural_elements_points">
-                    <CountField>Structure Count</CountField>
-                    <AttributeFilter field_id_ref="Type">
+                    <CountField field_id_ref="structure_count"/>
+                    <AttributeFilter field_id_ref="structure_type">
                         <Value>Dam</Value>
                         <Value>Dam Complex</Value>
                     </AttributeFilter>
@@ -731,7 +694,7 @@
             <Precision>1</Precision>
             <Parameters>
                     <DCELayer layer_id_ref="channel_junctions">
-                        <AttributeFilter field_id_ref="Type">
+                        <AttributeFilter field_id_ref="junction_type">
                             <Value>Diffluence</Value>
                         </AttributeFilter>
                     </DCELayer>
@@ -747,7 +710,7 @@
             <Parameters>
                 <InputLayer input_ref="centerline" usage="normalization"/>
                 <DCELayer layer_id_ref="channel_junctions">
-                    <AttributeFilter field_id_ref="Type">
+                    <AttributeFilter field_id_ref="junction_type">
                         <Value>Diffluence</Value>
                     </AttributeFilter>
                 </DCELayer>
@@ -773,7 +736,7 @@
             <Precision>2</Precision>
             <Parameters>
                 <DCELayer layer_id_ref="inundation_extents">
-                    <AttributeFilter field_id_ref="Extent Type">
+                    <AttributeFilter field_id_ref="type_id">
                         <Value>Free Flowing</Value>
                     </AttributeFilter>
                 </DCELayer>
@@ -800,7 +763,7 @@
             <Parameters>
                 <DCELayer layer_id_ref="active_extents">
                     <Usage>Numerator</Usage>
-                    <AttributeFilter field_id_ref="Type">
+                    <AttributeFilter field_id_ref="type_id">
                         <Value>Active</Value>
                     </AttributeFilter>
                 </DCELayer>
@@ -815,7 +778,7 @@
             <Precision>2</Precision>
             <Parameters>
                 <DCELayer layer_id_ref="structural_elements_areas">
-                    <AttributeFilter field_id_ref="Type">
+                    <AttributeFilter field_id_ref="structural_element_type">
                         <Value>Jam</Value>
                     </AttributeFilter>
                 </DCELayer>
@@ -830,14 +793,14 @@
             <Precision>1</Precision>
             <Parameters>
                 <DCELayer layer_id_ref="structural_elements_points">
-                    <CountField>Structure Count</CountField>
-                    <AttributeFilter field_id_ref="Type">
+                    <CountField field_id_ref="structure_count"/>
+                    <AttributeFilter field_id_ref="structural_element_type">
                         <Value>Jam</Value>
                         <Value>Jam Complex</Value>
                     </AttributeFilter>
                 </DCELayer>
                 <DCELayer layer_id_ref="structural_elements_areas">
-                    <AttributeFilter field_id_ref="Type">
+                    <AttributeFilter field_id_ref="structural_element_type">
                         <Value>Jam</Value>
                     </AttributeFilter>
                 </DCELayer>
@@ -853,7 +816,7 @@
             <Parameters>
                 <InputLayer input_ref="centerline" usage="normalization"/>
                 <DCELayer layer_id_ref="structural_elements_points">
-                    <CountField>Structure Count</CountField>
+                    <CountField field_id_ref="structure_count"/>
                     <AttributeFilter field_id_ref="Type">
                         <Value>Jam</Value>
                         <Value>Jam Complex</Value>
@@ -875,7 +838,7 @@
             <Precision>2</Precision>
             <Parameters>
                 <DCELayer layer_id_ref="geomorphic_unit_extents">
-                    <AttributeFilter field_id_ref="Type">
+                    <AttributeFilter field_id_ref="geomorphic_unit_type">
                         <Value>Mid Channel Bar</Value>
                     </AttributeFilter>
                 </DCELayer>
@@ -890,12 +853,12 @@
             <Precision>1</Precision>
             <Parameters>
                 <DCELayer layer_id_ref="geomorphic_units">
-                    <AttributeFilter field_id_ref="Type">
+                    <AttributeFilter field_id_ref="geomorphic_unit_type">
                         <Value>Mid Channel Bar</Value>
                     </AttributeFilter>
                 </DCELayer>
                 <DCELayer layer_id_ref="geomorphic_unit_extents">
-                    <AttributeFilter field_id_ref="Type">
+                    <AttributeFilter field_id_ref="geomorphic_unit_type">
                         <Value>Mid Channel Bar</Value>
                     </AttributeFilter>
                 </DCELayer>
@@ -911,12 +874,12 @@
             <Parameters>
                 <InputLayer input_ref="centerline" usage="normalization"/>
                 <DCELayer layer_id_ref="geomorphic_units">
-                    <AttributeFilter field_id_ref="Type">
+                    <AttributeFilter field_id_ref="geomorphic_unit_type">
                         <Value>Mid Channel Bar</Value>
                     </AttributeFilter>
                 </DCELayer>
                 <DCELayer layer_id_ref="geomorphic_unit_extents">
-                    <AttributeFilter field_id_ref="Type">
+                    <AttributeFilter field_id_ref="geomorphic_unit_type">
                         <Value>Mid Channel Bar</Value>
                     </AttributeFilter>
                 </DCELayer>
@@ -931,7 +894,7 @@
             <Precision>2</Precision>
             <Parameters>
                 <DCELayer layer_id_ref="inundation_extents">
-                    <AttributeFilter field_id_ref="Extent Type">
+                    <AttributeFilter field_id_ref="type_id">
                         <Value>Overflow</Value>
                     </AttributeFilter>
                 </DCELayer>
@@ -947,7 +910,7 @@
             <Parameters>                
                 <DCELayer layer_id_ref="inundation_extents">
                     <Usage>Numerator</Usage>
-                    <AttributeFilter field_id_ref="Extent Type">
+                    <AttributeFilter field_id_ref="type_id">
                         <Value>Free Flowing</Value>
                     </AttributeFilter>
                 </DCELayer>
@@ -979,7 +942,7 @@
             <Parameters>
                 <DCELayer layer_id_ref="inundation_extents">
                     <Usage>Numerator</Usage>
-                    <AttributeFilter field_id_ref="Extent Type">
+                    <AttributeFilter field_id_ref="type_id">
                         <Value>Overflow</Value>
                     </AttributeFilter>
                 </DCELayer>
@@ -998,7 +961,7 @@
             <Parameters>
                 <DCELayer layer_id_ref="inundation_extents">
                     <Usage>Numerator</Usage>
-                    <AttributeFilter field_id_ref="Extent Type">
+                    <AttributeFilter field_id_ref="type_id">
                         <Value>Ponded</Value>
                     </AttributeFilter>
                 </DCELayer>
@@ -1017,7 +980,7 @@
             <Parameters>                
                 <DCELayer layer_id_ref="vegetation_extents">
                     <Usage>Numerator</Usage>
-                    <AttributeFilter field_id_ref="Type">
+                    <AttributeFilter field_id_ref="vegetation_type">
                         <Value>Riparian</Value>
                     </AttributeFilter>
                 </DCELayer>
@@ -1032,12 +995,12 @@
             <Precision>2</Precision>
             <Parameters>
                 <DCELayer layer_id_ref="geomorphic_unit_extents">
-                    <AttributeFilter field_id_ref="Type">
+                    <AttributeFilter field_id_ref="geomorphic_unit_type">
                         <Value>Pool</Value>
-                            <Value>Pond</Value>
-                            <Value>Chute</Value>
-                        </AttributeFilter>
-                    </DCELayer>
+                        <Value>Pond</Value>
+                        <Value>Chute</Value>
+                    </AttributeFilter>
+                </DCELayer>
             </Parameters>
         </Metric>
         <Metric id="pool_count" version="1.0" calculation_machine_code="count">
@@ -1048,40 +1011,40 @@
             <MinimumValue>0</MinimumValue>
             <Precision>1</Precision>
             <Parameters>
-                    <DCELayer layer_id_ref="geomorphic_units">
-                        <AttributeFilter field_id_ref="Type">
-                            <Value>Pool</Value>
-                            <Value>Pond</Value>
-                            <Value>Chute</Value>
-                        </AttributeFilter>
-                    </DCELayer>
-                    <DCELayer layer_id_ref="geomorphic_unit_extents">
-                        <AttributeFilter field_id_ref="Type">
-                            <Value>Pool</Value>
-                            <Value>Pond</Value>
-                            <Value>Chute</Value>
-                        </AttributeFilter>
-                    </DCELayer>
-            </Parameters>
-        </Metric>
-        <Metric id="pool_density" version="1.0" calculation_machine_code="count">
-            <Label>Pool Density</Label>
-            <DefaultLevel>Metric</DefaultLevel>
-            <Description>The number of pools per km of riverscape</Description>
-            <DefinitionURL/>
-            <MinimumValue>0</MinimumValue>
-            <Precision>3</Precision>
-            <Parameters>
-                <InputLayer input_ref="centerline" usage="normalization"/>
                 <DCELayer layer_id_ref="geomorphic_units">
-                    <AttributeFilter field_id_ref="Type">
+                    <AttributeFilter field_id_ref="geomorphic_unit_type">
                         <Value>Pool</Value>
                         <Value>Pond</Value>
                         <Value>Chute</Value>
                     </AttributeFilter>
                 </DCELayer>
                 <DCELayer layer_id_ref="geomorphic_unit_extents">
-                    <AttributeFilter field_id_ref="Type">
+                    <AttributeFilter field_id_ref="geomorphic_unit_type">
+                        <Value>Pool</Value>
+                        <Value>Pond</Value>
+                        <Value>Chute</Value>
+                    </AttributeFilter>
+                </DCELayer>
+            </Parameters>
+        </Metric>
+        <Metric id="pool_density" version="1.0" calculation_machine_code="count">
+            <Label>Pool Density</Label>
+            <DefaultLevel>Metric</DefaultLevel>
+            <Description>The number of pools per length of riverscape</Description>
+            <DefinitionURL/>
+            <MinimumValue>0</MinimumValue>
+            <Precision>3</Precision>
+            <Parameters>
+                <InputLayer input_ref="centerline" usage="normalization"/>
+                <DCELayer layer_id_ref="geomorphic_units">
+                    <AttributeFilter field_id_ref="geomorphic_unit_type">
+                        <Value>Pool</Value>
+                        <Value>Pond</Value>
+                        <Value>Chute</Value>
+                    </AttributeFilter>
+                </DCELayer>
+                <DCELayer layer_id_ref="geomorphic_unit_extents">
+                    <AttributeFilter field_id_ref="geomorphic_unit_type">
                         <Value>Pool</Value>
                         <Value>Pond</Value>
                         <Value>Chute</Value>
@@ -1098,7 +1061,7 @@
             <Precision>2</Precision>
             <Parameters>
                 <DCELayer layer_id_ref="inundation_extents">
-                    <AttributeFilter field_id_ref="Extent Type">
+                    <AttributeFilter field_id_ref="type_id">
                         <Value>Ponded</Value>
                     </AttributeFilter>
                 </DCELayer>
@@ -1113,7 +1076,7 @@
             <Precision>2</Precision>
             <Parameters>
                 <DCELayer layer_id_ref="centerlines">
-                    <AttributeFilter field_id_ref="Type">
+                    <AttributeFilter field_id_ref="type_id">
                         <Value>Primary</Value>
                     </AttributeFilter>
                 </DCELayer>
@@ -1140,7 +1103,7 @@
             <Precision>2</Precision>
             <Parameters>                
                 <DCELayer layer_id_ref="geomorphic_unit_extents">
-                    <AttributeFilter field_id_ref="Type">
+                    <AttributeFilter field_id_ref="geomorphic_unit_type">
                         <Value>Riffle</Value>
                     </AttributeFilter>
                 </DCELayer>
@@ -1155,12 +1118,12 @@
             <Precision>1</Precision>
             <Parameters>
                 <DCELayer layer_id_ref="geomorphic_units">
-                    <AttributeFilter field_id_ref="Type">
+                    <AttributeFilter field_id_ref="geomorphic_unit_type">
                         <Value>Riffle</Value>
                     </AttributeFilter>
                 </DCELayer>
                 <DCELayer layer_id_ref="geomorphic_unit_extents">
-                    <AttributeFilter field_id_ref="Type">
+                    <AttributeFilter field_id_ref="geomorphic_unit_type">
                         <Value>Riffle</Value>
                     </AttributeFilter>
                 </DCELayer>
@@ -1176,12 +1139,12 @@
             <Parameters>
                 <InputLayer input_ref="centerline" usage="normalization"/>
                 <DCELayer layer_id_ref="geomorphic_units">
-                    <AttributeFilter field_id_ref="Type">
+                    <AttributeFilter field_id_ref="geomorphic_unit_type">
                         <Value>Riffle</Value>
                     </AttributeFilter>
                 </DCELayer>
                 <DCELayer layer_id_ref="geomorphic_unit_extents">
-                    <AttributeFilter field_id_ref="Type">
+                    <AttributeFilter field_id_ref="geomorphic_unit_type">
                         <Value>Riffle</Value>
                     </AttributeFilter>
                 </DCELayer>
@@ -1218,7 +1181,7 @@
             <Precision>2</Precision>
             <Parameters>
                 <DCELayer layer_id_ref="centerlines">
-                    <AttributeFilter field_id_ref="Type">
+                    <AttributeFilter field_id_ref="type_id">
                         <Value>Secondary</Value>
                     </AttributeFilter>
                 </DCELayer>
@@ -1233,7 +1196,7 @@
             <Precision>2</Precision>
             <Parameters>
                 <DCELayer layer_id_ref="cem_phases">
-                    <AttributeFilter field_id_ref="SEM Stage">
+                    <AttributeFilter field_id_ref="sem_stage">
                         <Value>0 Anastomosing</Value>
                     </AttributeFilter>
                 </DCELayer>
@@ -1248,7 +1211,7 @@
             <Precision>2</Precision>
             <Parameters>
                 <DCELayer layer_id_ref="cem_phases">
-                    <AttributeFilter field_id_ref="SEM Stage">
+                    <AttributeFilter field_id_ref="sem_stage">
                         <Value>1 Sinuous Single Thread</Value>
                     </AttributeFilter>
                 </DCELayer>
@@ -1263,7 +1226,7 @@
             <Precision>2</Precision>
             <Parameters>
                 <DCELayer layer_id_ref="cem_phases">
-                    <AttributeFilter field_id_ref="SEM Stage">
+                    <AttributeFilter field_id_ref="sem_stage">
                         <Value>2 Channelized</Value>
                     </AttributeFilter>
                 </DCELayer>
@@ -1278,7 +1241,7 @@
             <Precision>2</Precision>
             <Parameters>
                 <DCELayer layer_id_ref="cem_phases">
-                    <AttributeFilter field_id_ref="SEM Stage">
+                    <AttributeFilter field_id_ref="sem_stage">
                         <Value>3 Degradation</Value>
                     </AttributeFilter>
                 </DCELayer>
@@ -1293,7 +1256,7 @@
             <Precision>2</Precision>
             <Parameters>
                 <DCELayer layer_id_ref="cem_phases">
-                    <AttributeFilter field_id_ref="SEM Stage">
+                    <AttributeFilter field_id_ref="sem_stage">
                         <Value>4 Degradation and Widening</Value>
                     </AttributeFilter>
                 </DCELayer>
@@ -1308,7 +1271,7 @@
             <Precision>2</Precision>
             <Parameters>
                 <DCELayer layer_id_ref="cem_phases">
-                    <AttributeFilter field_id_ref="SEM Stage">
+                    <AttributeFilter field_id_ref="sem_stage">
                         <Value>5 Aggradation and Widening</Value>
                     </AttributeFilter>
                 </DCELayer>
@@ -1323,7 +1286,7 @@
             <Precision>2</Precision>
             <Parameters>
                 <DCELayer layer_id_ref="cem_phases">
-                    <AttributeFilter field_id_ref="SEM Stage">
+                    <AttributeFilter field_id_ref="sem_stage">
                         <Value>6 Quasi Equilibrium</Value>
                     </AttributeFilter>
                 </DCELayer>
@@ -1338,7 +1301,7 @@
             <Precision>2</Precision>
             <Parameters>
                 <DCELayer layer_id_ref="cem_phases">
-                    <AttributeFilter field_id_ref="SEM Stage">
+                    <AttributeFilter field_id_ref="sem_stage">
                         <Value>7 Laterally Active</Value>
                     </AttributeFilter>
                 </DCELayer>
@@ -1353,7 +1316,7 @@
             <Precision>2</Precision>
             <Parameters>
                 <DCELayer layer_id_ref="cem_phases">
-                    <AttributeFilter field_id_ref="SEM Stage">
+                    <AttributeFilter field_id_ref="sem_stage">
                         <Value>8 Anastomosing</Value>
                     </AttributeFilter>
                 </DCELayer>
