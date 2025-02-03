@@ -213,8 +213,8 @@
         <xs:complexContent>
             <xs:extension base="BaseFieldType">
                 <xs:sequence>
-                    <xs:element name="MinValue" type="xs:float" minOccurs="0" maxOccurs="1"/>
-                    <xs:element name="MaxValue" type="xs:float" minOccurs="0" maxOccurs="1"/>
+                    <xs:element name="MinimumValue" type="xs:float" minOccurs="0" maxOccurs="1"/>
+                    <xs:element name="MaximumValue" type="xs:float" minOccurs="0" maxOccurs="1"/>
                     <xs:element name="Precision" type="xs:integer" minOccurs="0" maxOccurs="1"/>
                 </xs:sequence>
             </xs:extension>
