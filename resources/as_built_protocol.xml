@@ -1,0 +1,137 @@
+<Protocol machine_code="AS_BUILT" version="1.0" status="experimental" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="protocol.xsd">
+    <Label>As-Built Protocol</Label>
+    <Description>As-Built Layers</Description>
+    <URL>https://lowtechpbr.restoration.usu.edu/</URL>
+    <Citation> Wheaton J.M., Bennett S.N., Bouwes, N., Maestas J.D. and Shahverdian S.M. (Editors). 2019. Low-Tech Process-Based Restoration of Riverscapes: Design Manual. Version 1.0. Utah State University Restoration Consortium. Logan, UT. 286 pp. DOI: 10.13140/RG.2.2.19590.63049/2.</Citation>
+    <Author>Nick Weber</Author>
+    <CreationDate>2024-09-01</CreationDate>
+    <UpdatedDate>2024-09-01</UpdatedDate>
+    <Metadata>
+        <MetadataItem>
+            <Name>My Meta</Name>
+            <Value>Data</Value>
+        </MetadataItem>
+    </Metadata>
+    <Layers>
+        <Layer id="structure_points" version="1.0" geom_type="Point">
+            <Label>Structure Points</Label>
+            <Symbology>structure_points.qml</Symbology>
+            <Description>Structure Points Layer</Description>
+            <Hierarchy>
+                <HierarchyItem>Structures</HierarchyItem>
+            </Hierarchy>
+            <Fields>
+                <Field id="structure_type" version="1.0" type="list">
+                    <Label>Structure Type</Label>
+                    <LookupValues>
+                        <LookupValue>ALS</LookupValue>
+                        <LookupValue>ALS - Bank Attached</LookupValue>
+                        <LookupValue>ALS - Bank Blaster</LookupValue>
+                        <LookupValue>ALS - Channel Spanning</LookupValue>
+                        <LookupValue>ALS - Rhino</LookupValue>
+                        <LookupValue>BDA</LookupValue>
+                        <LookupValue>BDA Postless</LookupValue>
+                        <LookupValue>Bag Plugs</LookupValue>
+                        <LookupValue>Fell Tree</LookupValue>
+                        <LookupValue>Floodplain BDA</LookupValue>
+                        <LookupValue>Floodplain LWD</LookupValue>
+                        <LookupValue>Full Tree</LookupValue>
+                        <LookupValue>Grip Hoist Tree</LookupValue>
+                        <LookupValue>Headcut Treatment</LookupValue>
+                        <LookupValue>Leaky Dam</LookupValue>
+                        <LookupValue>One Rock Dam</LookupValue>
+                        <LookupValue>PALS</LookupValue>
+                        <LookupValue>PALS - Bank Attached</LookupValue>
+                        <LookupValue>PALS - Bank Blaster</LookupValue>
+                        <LookupValue>PALS - Channel Spanning</LookupValue>
+                        <LookupValue>PALS - Constriction Jet</LookupValue>
+                        <LookupValue>PALS - Left Bank Attached</LookupValue>
+                        <LookupValue>PALS - Mid Channel</LookupValue>
+                        <LookupValue>PALS - Rhino</LookupValue>
+                        <LookupValue>PALS - Right Bank Attached</LookupValue>
+                        <LookupValue>Post and Brush Plug</LookupValue>
+                        <LookupValue>Postline Wicker Weave</LookupValue>
+                        <LookupValue>Primary BDA</LookupValue>
+                        <LookupValue>Rhino</LookupValue>
+                        <LookupValue>Secondary BDA</LookupValue>
+                        <LookupValue>Sedge Plugs</LookupValue>
+                        <LookupValue>Spreaders</LookupValue>
+                        <LookupValue>Strategic Felling</LookupValue>
+                        <LookupValue>Tight PALS (BDA without sod)</LookupValue>
+                        <LookupValue>Tree Dam</LookupValue>
+                        <LookupValue>Tree Plug</LookupValue>
+                        <LookupValue>Vanes</LookupValue>
+                        <LookupValue>Wicker Weirs</LookupValue>
+                        <LookupValue>Wood Jam</LookupValue>
+                        <LookupValue>Zuni Bowl</LookupValue>
+                    </LookupValues>
+                </Field>
+            </Fields>
+        </Layer>
+        <Layer id="structure_lines" version="1.0" geom_type="Linestring">
+            <Label>Structure Lines</Label>
+            <Symbology>structure_lines.qml</Symbology>
+            <Description>Structure Lines Layer</Description>
+            <Hierarchy>
+                <HierarchyItem>Structures</HierarchyItem>
+            </Hierarchy>
+            <Fields>
+                <Field id="structure_type" version="1.0" type="list">
+                    <Label>Structure Type</Label>
+                    <LookupValues>
+                        <LookupValue>ALS</LookupValue>
+                        <LookupValue>ALS - Bank Attached</LookupValue>
+                        <LookupValue>ALS - Bank Blaster</LookupValue>
+                        <LookupValue>ALS - Channel Spanning</LookupValue>
+                        <LookupValue>ALS - Rhino</LookupValue>
+                        <LookupValue>BDA</LookupValue>
+                        <LookupValue>BDA Postless</LookupValue>
+                        <LookupValue>Bag Plugs</LookupValue>
+                        <LookupValue>Fell Tree</LookupValue>
+                        <LookupValue>Floodplain BDA</LookupValue>
+                        <LookupValue>Floodplain LWD</LookupValue>
+                        <LookupValue>Full Tree</LookupValue>
+                        <LookupValue>Grip Hoist Tree</LookupValue>
+                        <LookupValue>Headcut Treatment</LookupValue>
+                        <LookupValue>Leaky Dam</LookupValue>
+                        <LookupValue>One Rock Dam</LookupValue>
+                        <LookupValue>PALS</LookupValue>
+                        <LookupValue>PALS - Bank Attached</LookupValue>
+                        <LookupValue>PALS - Bank Blaster</LookupValue>
+                        <LookupValue>PALS - Channel Spanning</LookupValue>
+                        <LookupValue>PALS - Constriction Jet</LookupValue>
+                        <LookupValue>PALS - Left Bank Attached</LookupValue>
+                        <LookupValue>PALS - Mid Channel</LookupValue>
+                        <LookupValue>PALS - Rhino</LookupValue>
+                        <LookupValue>PALS - Right Bank Attached</LookupValue>
+                        <LookupValue>Post and Brush Plug</LookupValue>
+                        <LookupValue>Postline Wicker Weave</LookupValue>
+                        <LookupValue>Primary BDA</LookupValue>
+                        <LookupValue>Rhino</LookupValue>
+                        <LookupValue>Secondary BDA</LookupValue>
+                        <LookupValue>Sedge Plugs</LookupValue>
+                        <LookupValue>Spreaders</LookupValue>
+                        <LookupValue>Strategic Felling</LookupValue>
+                        <LookupValue>Tight PALS (BDA without sod)</LookupValue>
+                        <LookupValue>Tree Dam</LookupValue>
+                        <LookupValue>Tree Plug</LookupValue>
+                        <LookupValue>Vanes</LookupValue>
+                        <LookupValue>Wicker Weirs</LookupValue>
+                        <LookupValue>Wood Jam</LookupValue>
+                        <LookupValue>Zuni Bowl</LookupValue>
+                    </LookupValues>
+                </Field>
+            </Fields>
+        </Layer>
+        <Layer id="observation_points_asbuilt" version="1.0" geom_type="Point">
+            <Label>Observations</Label>
+            <Symbology>observation_points_asbuilt.qml</Symbology>
+            <Description>Observations Points Layer</Description>
+            <Fields>
+                <Field id="photo_path" version="1.0" type="attachment">
+                    <Label>Photo Path</Label>
+                </Field>
+            </Fields>
+        </Layer>
+    </Layers>
+</Protocol>

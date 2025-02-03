@@ -1,0 +1,62 @@
+<Protocol machine_code="LTPBR_BASE" version="1.0" status="experimental" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="protocol.xsd">
+    <Label>Example Protocol</Label>
+    <Description>Example Description</Description>
+    <URL>http://example.com</URL>
+    <Citation>Example Citation</Citation>
+    <Author>Author Name</Author>
+    <CreationDate>2023-01-01</CreationDate>
+    <UpdatedDate>2023-01-02</UpdatedDate>
+    <MetaData>
+        <Meta name="Example Metadata">Example Value</Meta>
+        <Meta name="Example2">Example value 3</Meta>
+    </MetaData>
+    <Layers>
+        <Layer id="layer1" version="1.0" geom_type="Point">
+            <Label>Layer 1</Label>
+            <Symbology>Symbology 1</Symbology>
+            <Description>Layer 1 Description</Description>
+        </Layer>
+        <Layer id="layer2" version="1.0" geom_type="Polygon">
+            <Label>Layer 2</Label>
+            <Symbology>Symbology 2</Symbology>
+            <Description>Layer 2 Description</Description>
+        </Layer>
+    </Layers>
+    <Metrics>
+        <Metric id="metric1" version="1.0" calculation_machine_code="count">
+            <Label>Metric 1</Label>
+            <DefaultLevel>Metric</DefaultLevel>
+            <Description>Metric 1 Description</Description>
+            <DefinitionURL>http://example.com/metric1</DefinitionURL>
+            <MinimumValue>0</MinimumValue>
+            <Precision>1</Precision>
+            <Parameters>
+                <DCELayer layer_id_ref="layer1">
+                    <Usage>Denominator</Usage>
+                    <CountField>Count Field 1</CountField>
+                    <AttributeFilter field_id_ref="Type">
+                        <Value>Type 1</Value>
+                    </AttributeFilter>
+                </DCELayer>
+            </Parameters>
+        </Metric>
+        <Metric id="metric2" version="1.0" calculation_machine_code="sum">
+            <Label>Metric 2</Label>
+            <DefaultLevel>Metric</DefaultLevel>
+            <Description>Metric 2 Description</Description>
+            <DefinitionURL>http://example.com/metric2</DefinitionURL>
+            <MinimumValue>0</MinimumValue>
+            <Precision>2</Precision>
+            <Parameters>
+            <!-- This layer_id_ref should be red -->
+                <DCELayer layer_id_ref="layer2_id_does_not_exist">
+                    <Usage>Numerator</Usage>
+                    <CountField>Count Field 2</CountField>
+                    <AttributeFilter field_id_ref="Type">
+                        <Value>Type 2</Value>
+                    </AttributeFilter>
+                </DCELayer>
+            </Parameters>
+        </Metric>
+    </Metrics>
+</Protocol>
