@@ -15,11 +15,24 @@
             <Label>Layer 1</Label>
             <Symbology>Symbology 1</Symbology>
             <Description>Layer 1 Description</Description>
+            <Fields>
+                <IntegerField id="count_field" version="1.0">
+                    <Label>Count Field</Label>
+                </IntegerField>
+                <TextField id="type_field" version="1.0">
+                    <Label>Type Field</Label>
+                </TextField>
+            </Fields>
         </Layer>
         <Layer id="layer2" version="1.0" geom_type="Polygon">
             <Label>Layer 2</Label>
             <Symbology>Symbology 2</Symbology>
             <Description>Layer 2 Description</Description>
+            <Fields>
+                <TextField id="type_field" version="1.0">
+                    <Label>Type Field</Label>
+                </TextField>
+            </Fields>
         </Layer>
     </Layers>
     <Metrics>
@@ -33,8 +46,8 @@
             <Parameters>
                 <DCELayer layer_id_ref="layer1">
                     <Usage>Denominator</Usage>
-                    <CountField>Count Field 1</CountField>
-                    <AttributeFilter field_id_ref="Type">
+                    <CountField field_id_ref="count_field"/>
+                    <AttributeFilter field_id_ref="type_Field">
                         <Value>Type 1</Value>
                     </AttributeFilter>
                 </DCELayer>
@@ -51,8 +64,7 @@
             <!-- This layer_id_ref should be red -->
                 <DCELayer layer_id_ref="layer2_id_does_not_exist">
                     <Usage>Numerator</Usage>
-                    <CountField>Count Field 2</CountField>
-                    <AttributeFilter field_id_ref="Type">
+                    <AttributeFilter field_id_ref="type_field">
                         <Value>Type 2</Value>
                     </AttributeFilter>
                 </DCELayer>
