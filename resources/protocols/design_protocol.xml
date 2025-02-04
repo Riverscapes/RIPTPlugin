@@ -1,0 +1,243 @@
+<Protocol machine_code="DESIGN" version="1.0" status="experimental" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../protocol.xsd">
+    <Label>Beaver Census Protocol</Label>
+    <Description>Beaver Census Layers</Description>
+    <URL>https://lowtechpbr.restoration.usu.edu/</URL>
+    <Citation> Wheaton J.M., Bennett S.N., Bouwes, N., Maestas J.D. and Shahverdian S.M. (Editors). 2019. Low-Tech Process-Based Restoration of Riverscapes: Design Manual. Version 1.0. Utah State University Restoration Consortium. Logan, UT. 286 pp. DOI: 10.13140/RG.2.2.19590.63049/2.</Citation>
+    <Author>Jordan Gilbert</Author>
+    <CreationDate>2024-09-01</CreationDate>
+    <UpdatedDate>2024-09-01</UpdatedDate>
+    <Layers>
+        <Layer id="structure_points" version="1.0" geom_type="Point">
+            <Label>Structure Points</Label>
+            <Symbology>structure_points.qml</Symbology>
+            <Description>Structure Points Layer</Description>
+            <Hierarchy>
+                <HierarchyItem>Structures</HierarchyItem>
+            </Hierarchy>
+            <Fields>
+                <ListField id="structure_type" version="1.0">
+                    <Label>Structure Type</Label>
+                    <Values>
+                        <Value>ALS</Value>
+                        <Value>ALS - Bank Attached</Value>
+                        <Value>ALS - Bank Blaster</Value>
+                        <Value>ALS - Channel Spanning</Value>
+                        <Value>ALS - Rhino</Value>
+                        <Value>BDA</Value>
+                        <Value>BDA Postless</Value>
+                        <Value>Bag Plugs</Value>
+                        <Value>Fell Tree</Value>
+                        <Value>Floodplain BDA</Value>
+                        <Value>Floodplain LWD</Value>
+                        <Value>Full Tree</Value>
+                        <Value>Grip Hoist Tree</Value>
+                        <Value>Headcut Treatment</Value>
+                        <Value>Leaky Dam</Value>
+                        <Value>One Rock Dam</Value>
+                        <Value>PALS</Value>
+                        <Value>PALS - Bank Attached</Value>
+                        <Value>PALS - Bank Blaster</Value>
+                        <Value>PALS - Channel Spanning</Value>
+                        <Value>PALS - Constriction Jet</Value>
+                        <Value>PALS - Left Bank Attached</Value>
+                        <Value>PALS - Mid Channel</Value>
+                        <Value>PALS - Rhino</Value>
+                        <Value>PALS - Right Bank Attached</Value>
+                        <Value>Post and Brush Plug</Value>
+                        <Value>Postline Wicker Weave</Value>
+                        <Value>Primary BDA</Value>
+                        <Value>Rhino</Value>
+                        <Value>Secondary BDA</Value>
+                        <Value>Sedge Plugs</Value>
+                        <Value>Spreaders</Value>
+                        <Value>Strategic Felling</Value>
+                        <Value>Tight PALS (BDA without sod)</Value>
+                        <Value>Tree Dam</Value>
+                        <Value>Tree Plug</Value>
+                        <Value>Vanes</Value>
+                        <Value>Wicker Weirs</Value>
+                        <Value>Wood Jam</Value>
+                        <Value>Zuni Bowl</Value>
+                    </Values>
+                </ListField>
+            </Fields>
+        </Layer>
+        <Layer id="structure_lines" version="1.0" geom_type="Linestring">
+            <Label>Structure Lines</Label>
+            <Symbology>structure_lines.qml</Symbology>
+            <Description>Structure Lines Layer</Description>
+            <Hierarchy>
+                <HierarchyItem>Structures</HierarchyItem>
+            </Hierarchy>
+            <Fields>
+                <ListField id="structure_type" version="1.0">
+                    <Label>Structure Type</Label>
+                    <Values>
+                        <Value>ALS</Value>
+                        <Value>ALS - Bank Attached</Value>
+                        <Value>ALS - Bank Blaster</Value>
+                        <Value>ALS - Channel Spanning</Value>
+                        <Value>ALS - Rhino</Value>
+                        <Value>BDA</Value>
+                        <Value>BDA Postless</Value>
+                        <Value>Bag Plugs</Value>
+                        <Value>Fell Tree</Value>
+                        <Value>Floodplain BDA</Value>
+                        <Value>Floodplain LWD</Value>
+                        <Value>Full Tree</Value>
+                        <Value>Grip Hoist Tree</Value>
+                        <Value>Headcut Treatment</Value>
+                        <Value>Leaky Dam</Value>
+                        <Value>One Rock Dam</Value>
+                        <Value>PALS</Value>
+                        <Value>PALS - Bank Attached</Value>
+                        <Value>PALS - Bank Blaster</Value>
+                        <Value>PALS - Channel Spanning</Value>
+                        <Value>PALS - Constriction Jet</Value>
+                        <Value>PALS - Left Bank Attached</Value>
+                        <Value>PALS - Mid Channel</Value>
+                        <Value>PALS - Rhino</Value>
+                        <Value>PALS - Right Bank Attached</Value>
+                        <Value>Post and Brush Plug</Value>
+                        <Value>Postline Wicker Weave</Value>
+                        <Value>Primary BDA</Value>
+                        <Value>Rhino</Value>
+                        <Value>Secondary BDA</Value>
+                        <Value>Sedge Plugs</Value>
+                        <Value>Spreaders</Value>
+                        <Value>Strategic Felling</Value>
+                        <Value>Tight PALS (BDA without sod)</Value>
+                        <Value>Tree Dam</Value>
+                        <Value>Tree Plug</Value>
+                        <Value>Vanes</Value>
+                        <Value>Wicker Weirs</Value>
+                        <Value>Wood Jam</Value>
+                        <Value>Zuni Bowl</Value>
+                    </Values>
+                </ListField>
+            </Fields>
+        </Layer>
+        <Layer id="zoi" version="1.0" geom_type="Polygon">
+            <Label>Zones of Influence</Label>
+            <Symbology>zoi.qml</Symbology>
+            <Description>Zones of Influence Layer</Description>
+            <Fields>
+                <ListField id="zoi_type" version="1.0">
+                    <Label>ZOI Type</Label>
+                    <Values>
+                        <Value>Complex: Headcut Arrest</Value>
+                        <Value>Complex: Increase Channel Complexity</Value>
+                        <Value>Complex: Increase Floodplain Connectivity</Value>
+                        <Value>Complex: Lateral Channel Migration</Value>
+                        <Value>Complex: Overbank Flow Dispersal</Value>
+                        <Value>Complex: Pond/Wetland Creation</Value>
+                        <Value>Complex: Riparian/Wetland Expansion</Value>
+                        <Value>Complex: Side-Channel Connection</Value>
+                        <Value>Complex: Widening and Aggradation</Value>
+                        <Value>Structure: Geomorphic - Deposition in upstream backwater</Value>
+                        <Value>Structure: Geomorphic - Deposition of bar</Value>
+                        <Value>Structure: Geomorphic - Deposition overbank</Value>
+                        <Value>Structure: Geomorphic - Erode Bank</Value>
+                        <Value>Structure: Geomorphic - Erosion from convergent jet</Value>
+                        <Value>Structure: Geomorphic - Erosion from plunge</Value>
+                        <Value>Structure: Geomorphic - Erosion from return flow headcut</Value>
+                        <Value>Structure: Geomorphic - Erosion of bar edge</Value>
+                        <Value>Structure: Hydraulic - Constriction Jet</Value>
+                        <Value>Structure: Hydraulic - Divergent Flow</Value>
+                        <Value>Structure: Hydraulic - Eddy</Value>
+                        <Value>Structure: Hydraulic - Overflow</Value>
+                        <Value>Structure: Hydraulic - Ponding Flow</Value>
+                        <Value>Structure: Hydraulic - Shunting Flow</Value>
+                        <Value>Structure: Hydraulic - Splitting Flow</Value>
+                        <Value>Structure: Scout Pool Formation</Value>
+                    </Values>
+                </ListField>
+                <ListField id="zoi_stage" version="1.0">
+                    <Label>Stage</Label>
+                    <Values>
+                        <Value>Baseflow</Value>
+                        <Value>Typical Flood</Value>
+                        <Value>Large Flood</Value>
+                        <Value>Other</Value>
+                    </Values>
+                </ListField>
+            </Fields>
+        </Layer>
+        <Layer id="complexes" version="1.0" geom_type="Point">
+            <Label>Structure Complex Extents</Label>
+            <Symbology>complexes.qml</Symbology>
+            <Description>Structure Complex Extents Layer</Description>
+            <Hierarchy>
+                <HierarchyItem>Structures</HierarchyItem>
+            </Hierarchy>
+        </Layer>
+    <Layer id="observation_points" version="1.0" geom_type="Point">
+            <Label>Observation Points</Label>
+            <Symbology>observation_points.qml</Symbology>
+            <Description>Observation Points Layer</Description>
+            <MenuItems>
+                <MenuItem>import_photos</MenuItem>
+            </MenuItems>
+            <Hierarchy>
+                <HierarchyItem>Observations</HierarchyItem>
+            </Hierarchy>
+            <Fields>
+                <ListField id="observation_point_type" version="1.0">
+                    <Label>Observation Type</Label>
+                    <Values>
+                        <Value>Building Materials</Value>
+                        <Value>Caution</Value>
+                        <Value>Design Consideration</Value>
+                        <Value>Logistics</Value>
+                        <Value>Riverscape Feature</Value>
+                        <Value>Photo Observation</Value>
+                        <Value>Other</Value>
+                    </Values>
+                </ListField>
+                <AttachmentField id="photo_path" version="1.0">
+                    <Label>Photo Path</Label>
+                </AttachmentField>
+            </Fields>
+        </Layer>
+        <Layer id="observation_polygons" version="1.0" geom_type="Polygon">
+            <Label>Observation Polygons</Label>
+            <Symbology>observation_polygons.qml</Symbology>
+            <Description>Observation Polygons Layer</Description>
+            <Hierarchy>
+                <HierarchyItem>Observations</HierarchyItem>
+            </Hierarchy>
+            <Fields>
+                <ListField id="observation_polygon_type" version="1.0">
+                    <Label>Observation Type</Label>
+                    <Values>
+                        <Value>Caution</Value>
+                        <Value>Logistics</Value>
+                        <Value>Riverscape Feature</Value>
+                        <Value>Road</Value>
+                        <Value>Other</Value>
+                    </Values>
+                </ListField>
+            </Fields>
+        </Layer>
+        <Layer id="observation_lines" version="1.0" geom_type="Linestring">
+            <Label>Observation Lines</Label>
+            <Symbology>observation_lines.qml</Symbology>
+            <Description>Observation Lines Layer</Description>
+            <Hierarchy>
+                <HierarchyItem>Observations</HierarchyItem>
+            </Hierarchy>
+            <Fields>
+                <ListField id="observation_line_type" version="1.0">
+                    <Label>Observation Type</Label>
+                    <Values>
+                        <Value>Building Materials</Value>
+                        <Value>Caution</Value>
+                        <Value>Infrastructure</Value>
+                        <Value>Logistics</Value>
+                        <Value>Other</Value>
+                    </Values>
+                </ListField>
+            </Fields>
+        </Layer>
+    </Layers>
+</Protocol>

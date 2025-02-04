@@ -1,0 +1,131 @@
+<Protocol machine_code="AS_BUILT" version="1.0" status="experimental" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../protocol.xsd">
+    <Label>As-Built Protocol</Label>
+    <Description>As-Built Layers</Description>
+    <URL>https://lowtechpbr.restoration.usu.edu/</URL>
+    <Citation> Wheaton J.M., Bennett S.N., Bouwes, N., Maestas J.D. and Shahverdian S.M. (Editors). 2019. Low-Tech Process-Based Restoration of Riverscapes: Design Manual. Version 1.0. Utah State University Restoration Consortium. Logan, UT. 286 pp. DOI: 10.13140/RG.2.2.19590.63049/2.</Citation>
+    <Author>Nick Weber</Author>
+    <CreationDate>2024-09-01</CreationDate>
+    <UpdatedDate>2024-09-01</UpdatedDate>
+    <Layers>
+        <Layer id="structure_points" version="1.0" geom_type="Point">
+            <Label>Structure Points</Label>
+            <Symbology>structure_points.qml</Symbology>
+            <Description>Structure Points Layer</Description>
+            <Hierarchy>
+                <HierarchyItem>Structures</HierarchyItem>
+            </Hierarchy>
+            <Fields>
+                <ListField id="structure_type" version="1.0">
+                    <Label>Structure Type</Label>
+                    <Values>
+                        <Value>ALS</Value>
+                        <Value>ALS - Bank Attached</Value>
+                        <Value>ALS - Bank Blaster</Value>
+                        <Value>ALS - Channel Spanning</Value>
+                        <Value>ALS - Rhino</Value>
+                        <Value>BDA</Value>
+                        <Value>BDA Postless</Value>
+                        <Value>Bag Plugs</Value>
+                        <Value>Fell Tree</Value>
+                        <Value>Floodplain BDA</Value>
+                        <Value>Floodplain LWD</Value>
+                        <Value>Full Tree</Value>
+                        <Value>Grip Hoist Tree</Value>
+                        <Value>Headcut Treatment</Value>
+                        <Value>Leaky Dam</Value>
+                        <Value>One Rock Dam</Value>
+                        <Value>PALS</Value>
+                        <Value>PALS - Bank Attached</Value>
+                        <Value>PALS - Bank Blaster</Value>
+                        <Value>PALS - Channel Spanning</Value>
+                        <Value>PALS - Constriction Jet</Value>
+                        <Value>PALS - Left Bank Attached</Value>
+                        <Value>PALS - Mid Channel</Value>
+                        <Value>PALS - Rhino</Value>
+                        <Value>PALS - Right Bank Attached</Value>
+                        <Value>Post and Brush Plug</Value>
+                        <Value>Postline Wicker Weave</Value>
+                        <Value>Primary BDA</Value>
+                        <Value>Rhino</Value>
+                        <Value>Secondary BDA</Value>
+                        <Value>Sedge Plugs</Value>
+                        <Value>Spreaders</Value>
+                        <Value>Strategic Felling</Value>
+                        <Value>Tight PALS (BDA without sod)</Value>
+                        <Value>Tree Dam</Value>
+                        <Value>Tree Plug</Value>
+                        <Value>Vanes</Value>
+                        <Value>Wicker Weirs</Value>
+                        <Value>Wood Jam</Value>
+                        <Value>Zuni Bowl</Value>
+                    </Values>
+                </ListField>
+            </Fields>
+        </Layer>
+        <Layer id="structure_lines" version="1.0" geom_type="Linestring">
+            <Label>Structure Lines</Label>
+            <Symbology>structure_lines.qml</Symbology>
+            <Description>Structure Lines Layer</Description>
+            <Hierarchy>
+                <HierarchyItem>Structures</HierarchyItem>
+            </Hierarchy>
+            <Fields>
+                <ListField id="structure_type" version="1.0">
+                    <Label>Structure Type</Label>
+                    <Values>
+                        <Value>ALS</Value>
+                        <Value>ALS - Bank Attached</Value>
+                        <Value>ALS - Bank Blaster</Value>
+                        <Value>ALS - Channel Spanning</Value>
+                        <Value>ALS - Rhino</Value>
+                        <Value>BDA</Value>
+                        <Value>BDA Postless</Value>
+                        <Value>Bag Plugs</Value>
+                        <Value>Fell Tree</Value>
+                        <Value>Floodplain BDA</Value>
+                        <Value>Floodplain LWD</Value>
+                        <Value>Full Tree</Value>
+                        <Value>Grip Hoist Tree</Value>
+                        <Value>Headcut Treatment</Value>
+                        <Value>Leaky Dam</Value>
+                        <Value>One Rock Dam</Value>
+                        <Value>PALS</Value>
+                        <Value>PALS - Bank Attached</Value>
+                        <Value>PALS - Bank Blaster</Value>
+                        <Value>PALS - Channel Spanning</Value>
+                        <Value>PALS - Constriction Jet</Value>
+                        <Value>PALS - Left Bank Attached</Value>
+                        <Value>PALS - Mid Channel</Value>
+                        <Value>PALS - Rhino</Value>
+                        <Value>PALS - Right Bank Attached</Value>
+                        <Value>Post and Brush Plug</Value>
+                        <Value>Postline Wicker Weave</Value>
+                        <Value>Primary BDA</Value>
+                        <Value>Rhino</Value>
+                        <Value>Secondary BDA</Value>
+                        <Value>Sedge Plugs</Value>
+                        <Value>Spreaders</Value>
+                        <Value>Strategic Felling</Value>
+                        <Value>Tight PALS (BDA without sod)</Value>
+                        <Value>Tree Dam</Value>
+                        <Value>Tree Plug</Value>
+                        <Value>Vanes</Value>
+                        <Value>Wicker Weirs</Value>
+                        <Value>Wood Jam</Value>
+                        <Value>Zuni Bowl</Value>
+                    </Values>
+                </ListField>
+            </Fields>
+        </Layer>
+        <Layer id="observation_points_asbuilt" version="1.0" geom_type="Point">
+            <Label>Observations</Label>
+            <Symbology>observation_points_asbuilt.qml</Symbology>
+            <Description>Observations Points Layer</Description>
+            <Fields>
+                <AttachmentField id="photo_path" version="1.0">
+                    <Label>Photo Path</Label>
+                </AttachmentField>
+            </Fields>
+        </Layer>
+    </Layers>
+</Protocol>

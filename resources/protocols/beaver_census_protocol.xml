@@ -1,0 +1,78 @@
+<Protocol machine_code="BEAVER_CENSUS" version="1.0" status="experimental" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../protocol.xsd">
+    <Label>Beaver Census Protocol</Label>
+    <Description>Beaver Census Layers</Description>
+    <URL>https://lowtechpbr.restoration.usu.edu/</URL>
+    <Citation> Wheaton J.M., Bennett S.N., Bouwes, N., Maestas J.D. and Shahverdian S.M. (Editors). 2019. Low-Tech Process-Based Restoration of Riverscapes: Design Manual. Version 1.0. Utah State University Restoration Consortium. Logan, UT. 286 pp. DOI: 10.13140/RG.2.2.19590.63049/2.</Citation>
+    <Author>Jordan Gilbert</Author>
+    <CreationDate>2024-09-01</CreationDate>
+    <UpdatedDate>2024-09-01</UpdatedDate>
+    <Layers>
+        <Layer id="beaver_dam" version="1.0" geom_type="Point">
+            <Label>Beaver Dam</Label>
+            <Symbology>beaver_dam.qml</Symbology>
+            <Description>Beaver Dam Layer</Description>
+            <Hierarchy>
+                <HierarchyItem>Observations</HierarchyItem>
+                <HierarchyItem>Beaver Activity</HierarchyItem>
+            </Hierarchy>
+            <Fields>
+                <ListField id="dam_cer" version="1.0">
+                    <Label>Dam CER</Label>
+                    <Values>
+                        <Value>high</Value>
+                        <Value>medium</Value>
+                        <Value>low</Value>
+                    </Values>
+                </ListField>
+                <ListField id="dam_type" version="1.0">
+                    <Label>Dam Type</Label>
+                    <Values>
+                        <Value>active_dam</Value>
+                        <Value>inactive_dam</Value>
+                        <Value>relic</Value>
+                    </Values>
+                </ListField>
+                <ListField id="type_cer" version="1.0">
+                    <Label>Type CER</Label>
+                    <Values>
+                        <Value>high</Value>
+                        <Value>medium</Value>
+                        <Value>low</Value>
+                    </Values>
+                </ListField>
+            </Fields>
+        </Layer>
+        <Layer id="beaver_sign" version="1.0" geom_type="Point">
+            <Label>Beaver Sign</Label>
+            <Symbology>beaver_sign.qml</Symbology>
+            <Description>Beaver Sign Layer</Description>
+            <Hierarchy>
+                <HierarchyItem>Observations</HierarchyItem>
+                <HierarchyItem>Beaver Activity</HierarchyItem>
+            </Hierarchy>
+            <Fields>
+                <ListField id="sign_type" version="1.0">
+                    <Label>Type</Label>
+                    <Values>
+                        <Value>bank_den</Value>
+                        <Value>bank_lodge</Value>
+                        <Value>canal</Value>
+                        <Value>chew_stick</Value>
+                        <Value>clipped_vegetation</Value>
+                        <Value>felled_tree</Value>
+                        <Value>food_cache</Value>
+                        <Value>harvested_branches</Value>
+                        <Value>other</Value>
+                        <Value>pond_excavation</Value>
+                        <Value>pond_lodge</Value>
+                        <Value>scat</Value>
+                        <Value>scent_mound</Value>
+                        <Value>set_of_tracks</Value>
+                        <Value>skid_trail</Value>
+                        <Value>slide</Value>
+                    </Values>
+                </ListField>
+            </Fields> 
+        </Layer>
+    </Layers>
+</Protocol>

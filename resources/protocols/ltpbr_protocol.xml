@@ -1,4 +1,4 @@
-<Protocol machine_code="LTPBR_BASE" version="1.0" status="experimental" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="protocol.xsd">
+<Protocol machine_code="LTPBR_BASE" version="1.0" status="experimental" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../protocol.xsd">
     <Label>LTPBR Protocol</Label>
     <Description>Base LTPBR Layers</Description>
     <URL>https://lowtechpbr.restoration.usu.edu/</URL>
