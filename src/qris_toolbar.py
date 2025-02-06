@@ -362,6 +362,7 @@ class QRiSToolbar:
         self.qrave = QRaveIntegration(self.toolbar)
         if self.qrave.name is not None:
             self.settings.setValue('symbologyDir', self.qrave.symbology_folders)
+            self.settings.setValue('protocolDir', self.qrave.protocol_folder)
         else:
             QgsMessageLog.logMessage('Unable to load Required Riverscapes Viewer plugin. Some functions in QRiS may be disabled, including layer symbology and basemaps.', 'QRiS', Qgis.Critical)
             self.iface.messageBar().pushMessage('QRiS Plugin Load Error', f'Unable to load Riverscapes Viewer plugin.', level=Qgis.Critical, duration=5)
@@ -494,7 +495,8 @@ class QRiSToolbar:
         self.toggle_widget(forceOn=True)
 
         # update metrics definitions
-        self.update_metrics(db_path)
+        # self.update_metrics(db_path)
+
         
         # now we can create the project object and load the tree
         self.set_project_path_settings(db_path)

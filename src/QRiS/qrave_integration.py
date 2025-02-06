@@ -25,6 +25,7 @@ class QRaveIntegration(QObject):
         self.symbology_folders = None
         self.qrave_map_layer = None
         self.metric_definitions_folder = None
+        self.protocol_folder = None
 
         # Attemp to find RAVE plugin using lower case names
         plugins_lower_case = {k.lower(): k for k in plugins.keys()}
@@ -38,6 +39,7 @@ class QRaveIntegration(QObject):
             self.symbology_folders = [parse_posix_path(os.path.join(self.qrave_map_layer.SYMBOLOGY_DIR, 'RiverscapesStudio')),
                                       parse_posix_path(os.path.join(self.qrave_map_layer.SYMBOLOGY_DIR, 'Shared'))]
             self.metric_definitions_folder = parse_posix_path(os.path.join(self.qrave_map_layer.SYMBOLOGY_DIR, '..', 'QRiS', 'metrics'))
+            self.protocol_folder = parse_posix_path(os.path.join(self.qrave_map_layer.SYMBOLOGY_DIR, '..', 'QRiS', 'protocols'))
 
             self.basemaps_module = importlib.import_module(f'{self.name}.src.classes.basemaps')
             self.ProjectTreeData = self.qrave_map_layer.ProjectTreeData

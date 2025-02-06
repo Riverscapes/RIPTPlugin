@@ -15,6 +15,7 @@
         "settingsCategory": "QRiS",
         "businessLogicDir": "blXML",
         "symbologyDir": "symbology",
+        "protocolsDir": "protocols",
         "digestSyncFreqHours": 24,
         "warehouseUrl": "https://data.riverscapes.net",
         "webUrl": "https://qris.riverscapes.net",

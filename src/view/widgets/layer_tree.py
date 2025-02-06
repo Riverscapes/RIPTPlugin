@@ -1,8 +1,13 @@
+import os
+
 from PyQt5 import QtCore, QtGui, QtWidgets
 
 from ...model.project import Project
 from ...model.event import PLANNING_EVENT_TYPE_ID, AS_BUILT_EVENT_TYPE_ID, DESIGN_EVENT_TYPE_ID, PLANNING_MACHINE_CODE, AS_BUILT_MACHINE_CODE, DESIGN_MACHINE_CODE
 from ...model.layer import Layer
+
+from ...QRiS.settings import Settings
+from ...QRiS.protocol_parser import load_protocols
 
 from ..frm_event_picker import FrmEventPicker
 
@@ -16,10 +21,18 @@ class LayerTreeWidget(QtWidgets.QWidget):
         self.event_type_id = event_type_id
         self.mandatory_layers = mandatory_layers
         
+        settings = Settings()
+        protocol_directory = settings.getValue('protocolsDir')
+        qris_protoccols = load_protocols(protocol_directory)
+        project_directory = os.path.dirname(self.qris_project.project_file)
+        local_protocols = load_protocols(project_directory)
+
+        self.protocols = local_protocols + qris_protoccols
+
         self.setupUi()
 
         self.tree_model = None
-        self.load_layer_tree()
+        self.load_protocol_layer_tree()
 
         self.layers_model = QtGui.QStandardItemModel()
         self.layer_list.setModel(self.layers_model)
@@ -49,18 +62,17 @@ class LayerTreeWidget(QtWidgets.QWidget):
             self.layers_model.appendRow(layer_item)
 
 
-    def load_layer_tree(self):
+    def load_protocol_layer_tree(self):
 
-        layer_names = [layer.name for protocol in self.qris_project.protocols.values() for method in protocol.methods for layer in method.layers]
-        layer_names += [layer.name for layer in self.qris_project.non_method_layers.values()]
+        layer_names = [layer.label for protocol in self.protocols for layer in protocol.layers]
         duplicate_layers = [item for item in set(layer_names) if layer_names.count(item) > 1]
 
         # Rebuild the tree
         self.tree_model = QtGui.QStandardItemModel(self)
-        for protocol in self.qris_project.protocols.values():
-            protocol_si = QtGui.QStandardItem(protocol.name)
+        for protocol in self.protocols:
+            protocol_si = QtGui.QStandardItem(protocol.label)
             if self.event_type_id == DATA_CAPTURE_EVENT_TYPE_ID:
-                if protocol.has_custom_ui == 1 or protocol.machine_code.lower() == PLANNING_MACHINE_CODE.lower():
+                if protocol.machine_code.lower() in [PLANNING_MACHINE_CODE.lower(), AS_BUILT_MACHINE_CODE.lower(), DESIGN_MACHINE_CODE.lower()]:
                     continue
             if self.event_type_id == PLANNING_EVENT_TYPE_ID:
                 if protocol.machine_code.lower() != PLANNING_MACHINE_CODE.lower():
@@ -74,54 +86,23 @@ class LayerTreeWidget(QtWidgets.QWidget):
 
             protocol_si.setData(protocol, QtCore.Qt.UserRole)
             protocol_si.setEditable(False)
-            # protocol_si.setCheckable(True)
 
-            for method in protocol.methods:
-                # method_si = QtGui.QStandardItem(method.name)
-                # method_si.setEditable(False)
-                # method_si.setData(method, QtCore.Qt.UserRole)
-                # method_si.setCheckable(True)
+            for layer in protocol.layers:
+                # TODO temporarlily Turn off Brat layers
+                if layer.label in ["BRAT CIS", "BRAT CIS Reaches"]:
+                    continue
 
-                for layer in method.layers:
-                    # TODO temporarlily Turn off Brat layers
-                    if layer.name in ["BRAT CIS", "BRAT CIS Reaches"]:
-                        continue
-
-                    layer_name = layer.name if layer.name not in duplicate_layers else f'{layer.name} ({layer.geom_type})'
-                    layer_si = QtGui.QStandardItem(layer_name)
-                    layer_si.setEditable(False)
-                    layer_si.setData(layer, QtCore.Qt.UserRole)
-                    # layer_si.setCheckable(True)
-
-                    # if layer in checked_layers:
-                    #     layer_si.setCheckState(QtCore.Qt.Checked)
-
-                    # if self.chkActiveLayers.checkState() == QtCore.Qt.Unchecked or layer_si.checkState() == QtCore.Qt.Checked:
-                    # method_si.appendRow(layer_si)
-                    protocol_si.appendRow(layer_si)
-
-                # if method_si.hasChildren():
-                #     # if self.chkActiveLayers.checkState() == QtCore.Qt.Unchecked or method_si.hasChildren():
-                #     protocol_si.appendRow(method_si)
+                layer_name = layer.label if layer.label not in duplicate_layers else f'{layer.label} ({layer.geom_type})'
+                layer_si = QtGui.QStandardItem(layer_name)
+                layer_si.setEditable(False)
+                layer_si.setData(layer, QtCore.Qt.UserRole)
+                protocol_si.appendRow(layer_si)
 
             if protocol_si.hasChildren():
-                # if self.chkActiveLayers.checkState() == QtCore.Qt.Unchecked or protocol_si.hasChildren():
                 self.tree_model.appendRow(protocol_si)
-
-        # non_method_si = QtGui.QStandardItem('Layers without a method')
-        # non_method_si.setEditable(False)
-        # non_method_si.setData(None, QtCore.Qt.UserRole)
-        # for non_method_layer in self.qris_project.non_method_layers.values():
-        #     layer_name = non_method_layer.name if non_method_layer.name not in duplicate_layers else f'{non_method_layer.name} ({non_method_layer.geom_type})'
-        #     layer_si = QtGui.QStandardItem(layer_name)
-        #     layer_si.setEditable(False)
-        #     layer_si.setData(non_method_layer, QtCore.Qt.UserRole)
-        #     non_method_si.appendRow(layer_si)
-        # self.tree_model.appendRow(non_method_si)
 
         self.layer_tree.setModel(self.tree_model)
         self.layer_tree.expandAll()
-        # self.layer_tree.setExpanded(self.tree_model.indexFromItem(non_method_si), False)
 
         self.layer_tree.doubleClicked.connect(self.on_double_click_tree)
 

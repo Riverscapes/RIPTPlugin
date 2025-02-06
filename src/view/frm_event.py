@@ -9,6 +9,7 @@ from ..model.datespec import DateSpec
 from ..model.project import Project
 from ..model.layer import Layer
 
+
 from .frm_date_picker import FrmDatePicker
 from .widgets.metadata import MetadataWidget
 from .widgets.surface_library import SurfaceLibraryWidget
@@ -24,20 +25,19 @@ DATA_CAPTURE_EVENT_TYPE_ID = 1
 
 class FrmEvent(QtWidgets.QDialog):
 
-    def __init__(self, parent, qris_project: Project, event_type_id: int = DATA_CAPTURE_EVENT_TYPE_ID, event: Event = None):
+    def __init__(self, parent, qris_project: Project, event_type_id: int = DATA_CAPTURE_EVENT_TYPE_ID, dce_event: Event = None):
         super().__init__(parent)
 
         self.qris_project = qris_project
-        self.protocols = []
         self.event_type_id = event_type_id
         # Note that "event" is already a method from QDialog(), hence the weird name
-        self.the_event = event
+        self.dce_event = dce_event
         self.mandatory_layers = None
 
         init_metadata = None
-        if event is not None and event.metadata is not None:
+        if dce_event is not None and dce_event.metadata is not None:
             # move any keys that are not 'metadata', 'system' or 'attributes' to 'system'
-            init_metadata = event.metadata
+            init_metadata = dce_event.metadata
             if 'system' not in init_metadata:
                 init_metadata['system'] = dict()
             for key in list(init_metadata.keys()):
@@ -55,13 +55,10 @@ class FrmEvent(QtWidgets.QDialog):
 
         self.setupUi()
         dce_type = 'Data Capture' if event_type_id == DATA_CAPTURE_EVENT_TYPE_ID else 'Planning'
-        self.setWindowTitle(f'Create New {dce_type} Event' if event is None else f'Edit {dce_type} Event')
+        self.setWindowTitle(f'Create New {dce_type} Event' if dce_event is None else f'Edit {dce_type} Event')
 
         self.platform_model = DBItemModel(qris_project.lookup_tables['lkp_platform'])
-        # self.representation_model = DBItemModel(qris_project.lookup_tables['lkp_representation'])
-        # self.representation_model._data.sort(key=lambda a: a[0])
         self.cboPlatform.setModel(self.platform_model)
-        # self.cboRepresentation.setModel(self.representation_model)
 
         self.optSingleDate.toggled.connect(self.on_opt_date_change)
 
@@ -72,15 +69,14 @@ class FrmEvent(QtWidgets.QDialog):
         self.cboValleyBottom.setModel(self.valley_bottom_model)
         self.cboValleyBottom.setCurrentIndex(0)
 
-        if event is not None:
-            self.txtName.setText(event.name)
-            self.txtDescription.setPlainText(event.description)
-            self.cboPlatform.setCurrentIndex(event.platform.id - 1)
-            # self.cboRepresentation.setCurrentIndex(event.representation.id - 1)
+        if dce_event is not None:
+            self.txtName.setText(dce_event.name)
+            self.txtDescription.setPlainText(dce_event.description)
+            self.cboPlatform.setCurrentIndex(dce_event.platform.id - 1)
 
-            self.uc_start.set_date_spec(event.start)
-            self.uc_end.set_date_spec(event.end)
-            if any(date is not None for date in [event.end.day, event.end.year, event.end.month]):
+            self.uc_start.set_date_spec(dce_event.start)
+            self.uc_end.set_date_spec(dce_event.end)
+            if any(date is not None for date in [dce_event.end.day, dce_event.end.year, dce_event.end.month]):
                 self.optDateRange.setChecked(True)
 
             if self.metadata_widget.metadata is not None and 'system' in self.metadata_widget.metadata:
@@ -92,13 +88,13 @@ class FrmEvent(QtWidgets.QDialog):
                     self.txtDateLabel.setText(self.metadata_widget.metadata['system']['date_label'])
 
             if self.layer_widget is not None:
-                for event_layer in event.event_layers:
+                for event_layer in dce_event.event_layers:
                     item = QtGui.QStandardItem(event_layer.layer.name)
                     item.setData(event_layer.layer, QtCore.Qt.UserRole)
                     item.setEditable(False)
                     self.layer_widget.layers_model.appendRow(item)
 
-            self.surface_library.set_selected_surface_ids([r.id for r in event.rasters])
+            self.surface_library.set_selected_surface_ids([r.id for r in dce_event.rasters])
 
         self.txtName.setFocus()
 
@@ -191,9 +187,9 @@ class FrmEvent(QtWidgets.QDialog):
             return
 
         try:
-            if self.the_event is not None:
+            if self.dce_event is not None:
                 # Check if any GIS data might be lost
-                for event_layer in self.the_event.event_layers:
+                for event_layer in self.dce_event.event_layers:
                     if event_layer.layer not in layers_in_use:
                         response = QtWidgets.QMessageBox.question(self, 'Possible Data Loss',
                                                                   """One or more layers that were part of this data capture event are no longer associated with the event.
@@ -203,10 +199,10 @@ class FrmEvent(QtWidgets.QDialog):
                         if response == QtWidgets.QMessageBox.No:
                             return
 
-                self.the_event.update(self.qris_project.project_file, self.txtName.text(), self.txtDescription.toPlainText(), layers_in_use, surface_rasters, start_date, end_date, self.cboPlatform.currentData(QtCore.Qt.UserRole), None, self.metadata_widget.get_data())
+                self.dce_event.update(self.qris_project.project_file, self.txtName.text(), self.txtDescription.toPlainText(), layers_in_use, surface_rasters, start_date, end_date, self.cboPlatform.currentData(QtCore.Qt.UserRole), None, self.metadata_widget.get_data())
                 super().accept()
             else:
-                self.the_event = insert_event(
+                self.dce_event = insert_event(
                     self.qris_project.project_file,
                     self.txtName.text(),
                     self.txtDescription.toPlainText(),
@@ -221,7 +217,7 @@ class FrmEvent(QtWidgets.QDialog):
                     self.metadata_widget.get_data()
                 )
 
-                self.qris_project.events[self.the_event.id] = self.the_event
+                self.qris_project.events[self.dce_event.id] = self.dce_event
                 super().accept()
 
         except Exception as ex:
@@ -243,8 +239,7 @@ class FrmEvent(QtWidgets.QDialog):
         self.grid = QtWidgets.QGridLayout()
         self.vert.addLayout(self.grid)
 
-        self.lblName = QtWidgets.QLabel()
-        self.lblName.setText('Name')
+        self.lblName = QtWidgets.QLabel('Name')
         self.grid.addWidget(self.lblName, 0, 0, 1, 1)
 
         self.txtName = QtWidgets.QLineEdit()
@@ -289,15 +284,13 @@ class FrmEvent(QtWidgets.QDialog):
         self.setToolTip('Select this option if the event occurred over a range of dates.')
         self.tabGrid.addWidget(self.optDateRange, 4, 0, 1, 1)
 
-        self.lblStartDate = QtWidgets.QLabel()
-        self.lblStartDate.setText('Date')
+        self.lblStartDate = QtWidgets.QLabel('Date')
         self.tabGrid.addWidget(self.lblStartDate, 5, 0, 1, 1)
 
         self.uc_start = FrmDatePicker(self)
         self.tabGrid.addWidget(self.uc_start, 5, 1, 1, 1)
 
-        self.lblEndDate = QtWidgets.QLabel()
-        self.lblEndDate.setText('End Date')
+        self.lblEndDate = QtWidgets.QLabel('End Date')
         self.lblEndDate.setVisible(False)
         self.tabGrid.addWidget(self.lblEndDate, 6, 0, 1, 1)
 
@@ -305,8 +298,7 @@ class FrmEvent(QtWidgets.QDialog):
         self.uc_end.setVisible(False)
         self.tabGrid.addWidget(self.uc_end, 6, 1, 1, 1)
 
-        self.lblPlatform = QtWidgets.QLabel()
-        self.lblPlatform.setText('Event completed at')
+        self.lblPlatform = QtWidgets.QLabel('Event completed at')
         self.tabGrid.addWidget(self.lblPlatform, 8, 0, 1, 1)
 
         self.cboPlatform = QtWidgets.QComboBox()
@@ -319,18 +311,11 @@ class FrmEvent(QtWidgets.QDialog):
         self.txtDateLabel.setPlaceholderText('Optional lable to express what the date represents.')
         self.tabGrid.addWidget(self.txtDateLabel, 7, 1, 1, 1)
 
-        # self.lblRepresentation = QtWidgets.QLabel("Representation")
-        # self.tabGrid.addWidget(self.lblRepresentation, 8, 0, 1, 1)
-
-        # self.cboRepresentation = QtWidgets.QComboBox()
-        # self.tabGrid.addWidget(self.cboRepresentation, 8, 1, 1, 1)
-
         verticalSpacer = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
         self.tabGrid.addItem(verticalSpacer)
 
-        self.chkAddToMap = QtWidgets.QCheckBox()
+        self.chkAddToMap = QtWidgets.QCheckBox('Add New Layers to Map')
         self.chkAddToMap.setChecked(False)
-        self.chkAddToMap.setText('Add New Layers to Map')
         self.vert.addWidget(self.chkAddToMap)
 
         # Surface Rasters

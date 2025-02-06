@@ -783,7 +783,7 @@ class QRiSDockWidget(QtWidgets.QDockWidget):
 
         result = self.frm_event.exec_()
         if result is not None and result != 0:
-            self.add_event_to_project_tree(parent_node, self.frm_event.the_event, self.frm_event.chkAddToMap.isChecked())
+            self.add_event_to_project_tree(parent_node, self.frm_event.dce_event, self.frm_event.chkAddToMap.isChecked())
 
     def add_planning_container(self, parent_node):
         """Initiates adding a new planning container"""
@@ -1556,7 +1556,7 @@ class QRiSDockWidget(QtWidgets.QDockWidget):
             elif db_item.event_type.id == AS_BUILT_EVENT_TYPE_ID:
                 frm = FrmAsBuilt(self, self.project, db_item.event_type.id, event=db_item)
             else:
-                frm = FrmEvent(self, self.project, event=db_item, event_type_id=db_item.event_type.id)
+                frm = FrmEvent(self, self.project, dce_event=db_item, event_type_id=db_item.event_type.id)
         elif isinstance(db_item, SampleFrame):
             if db_item.sample_frame_type == SampleFrame.AOI_SAMPLE_FRAME_TYPE:
                 frm = FrmAOI(self, self.project, None, db_item)
