@@ -176,7 +176,7 @@ class FrmDesign(FrmEvent):
                 protocol_item = self.layer_widget.tree_model.item(index)
                 for layer_index in range(protocol_item.rowCount()):
                     layer_item = protocol_item.child(layer_index)
-                    if 'complexes' in layer_item.data(QtCore.Qt.UserRole).fc_name:
+                    if 'complexes' in layer_item.data(QtCore.Qt.UserRole).id:
                         self.layer_widget.add_selected_layers(layer_item)
 
     def on_cboPlanningContainers_currentIndexChanged(self, index):

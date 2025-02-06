@@ -157,7 +157,7 @@ class FrmAsBuilt(FrmEvent):
                 protocol_item = self.layer_widget.tree_model.item(index)
                 for layer_index in range(protocol_item.rowCount()):
                     layer_item = protocol_item.child(layer_index)
-                    if 'structure_points' in layer_item.data(QtCore.Qt.UserRole).fc_name:
+                    if 'structure_points' in layer_item.data(QtCore.Qt.UserRole).id:
                         self.layer_widget.add_selected_layers(layer_item)
                 
 

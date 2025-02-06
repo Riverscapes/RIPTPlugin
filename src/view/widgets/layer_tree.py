@@ -56,9 +56,13 @@ class LayerTreeWidget(QtWidgets.QWidget):
                 if tree_layer == list_layer:
                     return
             # If got to here then the layer selected in the tree is not in use
+            # need the protocol name as well. should be the parent
+            tree_protocol = item.parent().data(QtCore.Qt.UserRole).label
+            protocol_version = item.parent().data(QtCore.Qt.UserRole).version
             layer_item = QtGui.QStandardItem(tree_name)
             layer_item.setData(tree_layer, QtCore.Qt.UserRole)
             layer_item.setEditable(False)
+            layer_item.setToolTip(f'{tree_protocol} ({protocol_version}): {tree_layer.id} - Version {tree_layer.version}')
             self.layers_model.appendRow(layer_item)
 
 
@@ -95,6 +99,7 @@ class LayerTreeWidget(QtWidgets.QWidget):
                 layer_name = layer.label if layer.label not in duplicate_layers else f'{layer.label} ({layer.geom_type})'
                 layer_si = QtGui.QStandardItem(layer_name)
                 layer_si.setEditable(False)
+                layer_si.setToolTip(f'{layer.id} - Version {layer.version}')
                 layer_si.setData(layer, QtCore.Qt.UserRole)
                 protocol_si.appendRow(layer_si)
 

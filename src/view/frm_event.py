@@ -276,12 +276,12 @@ class FrmEvent(QtWidgets.QDialog):
         self.txtPhase.setVisible(False)
 
         self.optSingleDate = QtWidgets.QRadioButton('Single Point in Time')
-        self.setToolTip('Select this option if the event occurred at a single point in time.')
+        self.optSingleDate.setToolTip('Select this option if the event occurred at a single point in time.')
         self.optSingleDate.setChecked(True)
         self.tabGrid.addWidget(self.optSingleDate, 3, 0, 1, 1)
 
         self.optDateRange = QtWidgets.QRadioButton('Date Range')
-        self.setToolTip('Select this option if the event occurred over a range of dates.')
+        self.optDateRange.setToolTip('Select this option if the event occurred over a range of dates.')
         self.tabGrid.addWidget(self.optDateRange, 4, 0, 1, 1)
 
         self.lblStartDate = QtWidgets.QLabel('Date')
