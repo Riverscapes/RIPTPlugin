@@ -111,7 +111,7 @@ class MetadataFieldEditWidget(QgsEditorWidgetWrapper):
                 # we are going to check the value of the field that is being used to determine the visibility of this field later on.
                 widget.setEnabled(False)
 
-            self.widgets[field['label']] = widget
+            self.widgets[field['machine_code']] = widget
             row += 1
 
     def valid(self) -> bool:
@@ -174,10 +174,10 @@ class MetadataFieldEditWidget(QgsEditorWidgetWrapper):
             if 'visibility' in field.keys():
                 if field['visibility'] == 'None':
                     widget.setEnabled(False)
-                field_to_check = field['visibility']['field_name']
-                field_name_to_check = next((f for f in self.fields if f['machine_code'] == field_to_check), {}).get('label', '')
+                # field_to_check = field['visibility']['field_name']
+                # field_name_to_check = next((f for f in self.fields if f['machine_code'] == field_to_check), {}).get('label', '')
                 values_to_check = field['visibility']['values']
-                if widget_values.get(field_name_to_check, '') in values_to_check:
+                if widget_values.get(field['visibility']['field_name'], '') in values_to_check:
                     widget.setEnabled(True)
                 else:
                     widget.setEnabled(False)

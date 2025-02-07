@@ -438,29 +438,29 @@ class RiverscapesMapManager(QObject):
     # Set Fields
     def set_metadata_virtual_fields(self, feature_layer: QgsVectorLayer, field_config: dict = None, default_photo_path: str = None) -> None:
 
+        field_types = {
+            'integer': QVariant.Int,
+            'float': QVariant.Double,
+            'boolean': QVariant.Bool,
+            'url': QVariant.Url,
+            'string': QVariant.String
+        }
+
         fields = feature_layer.fields()
         field_index = fields.indexFromName('metadata')
         if field_index == -1:
             return
 
-        metadata_fields = {}
+        metadata_fields = {'attributes': {},
+                            'metadata': {}}
         added_fields = []
+        field_labels = {}
         if field_config is not None:
             for field in field_config.get('fields', []):
-                if field['type'] == 'integer':
-                    field_type = QVariant.Int
-                elif field['type'] == 'float':
-                    field_type = QVariant.Double
-                elif field['type'] == 'boolean':
-                    field_type = QVariant.Bool
-                elif field['type'] == 'url':
-                    field_type = QVariant.Url
-                else:
-                    field_type = QVariant.String
-                # add attribute to metadata_fields if it does not exist
-                if 'attributes' not in metadata_fields:
-                    metadata_fields.update({'attributes': {}})
-                metadata_fields['attributes'].update({field['label']: field_type})
+                field_type = field_types.get(field['type'], QVariant.String)
+                field_name = field['label']
+                field_labels.update({field['machine_code']: field_name})
+                metadata_fields['attributes'].update({field['machine_code']: field_type})
 
         # get all the keys from the metadata dictionary by reading all of the features
         for feature in feature_layer.getFeatures():
@@ -485,8 +485,8 @@ class RiverscapesMapManager(QObject):
                     field_type = QVariant.Url
                 else:
                     field_type = QVariant.String
-                if 'metadata' not in metadata_fields:
-                    metadata_fields.update({'metadata': {}})
+                # if 'metadata' not in metadata_fields:
+                #     metadata_fields.update({'metadata': {}})
                 metadata_fields['metadata'].update({key: field_type})
                 added_fields.append(key)
 
@@ -494,12 +494,14 @@ class RiverscapesMapManager(QObject):
         for upper_key, new_fields in metadata_fields.items():
             for key, field_type in new_fields.items():
 
-                field_name = f"{key} ({upper_key})" if upper_key == 'metadata' else key
+                field_name = f"{key} ({upper_key})"
+                if upper_key == 'attributes':
+                    field_name = field_labels.get(key, field_name)
 
                 virtual_field = QgsField(field_name, field_type)
                 feature_layer.addExpressionField(f"""map_get(map_get(json_to_map("metadata"), '{upper_key}'), '{key}')""", virtual_field)
 
-                if key == "Photo Path":
+                if key == "photo_path":
                     # set attachment widget for photos
                     widget = QgsEditorWidgetSetup('ExternalResource',
                                                 {
@@ -516,7 +518,7 @@ class RiverscapesMapManager(QObject):
                 else:
                     # hide the virtual field from the form editor
                     widget = QgsEditorWidgetSetup('Hidden', {})
-                feature_layer.setEditorWidgetSetup(feature_layer.fields().indexFromName(key), widget)
+                feature_layer.setEditorWidgetSetup(feature_layer.fields().indexFromName(field_name), widget)
 
             # set the default value for the metadata field
         feature_layer.setDefaultValueDefinition(field_index, QgsDefaultValue('\'{}\''))

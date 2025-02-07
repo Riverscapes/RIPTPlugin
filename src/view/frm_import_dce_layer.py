@@ -48,7 +48,7 @@ class FrmImportDceLayer(QtWidgets.QDialog):
         if self.db_item.layer.metadata is not None:
             if 'fields' in self.db_item.layer.metadata.keys():
                 for field in self.db_item.layer.metadata['fields']:
-                    self.target_fields[field['label']] = field
+                    self.target_fields[field['machine_code']] = field
 
         super(FrmImportDceLayer, self).__init__(parent)
         self.setupUi()
