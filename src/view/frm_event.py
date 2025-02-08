@@ -81,7 +81,9 @@ class FrmEvent(QtWidgets.QDialog):
 
             if self.metadata_widget.metadata is not None and 'system' in self.metadata_widget.metadata:
                 if 'valley_bottom_id' in self.metadata_widget.metadata['system']:
-                    self.cboValleyBottom.setCurrentIndex(self.valley_bottom_model.getItemIndexById(self.metadata_widget.metadata['system']['valley_bottom_id']))
+                    index = self.valley_bottom_model.getItemIndexById(self.metadata_widget.metadata['system']['valley_bottom_id'])
+                    if index is not None:
+                        self.cboValleyBottom.setCurrentIndex(index)
                 if 'phase' in self.metadata_widget.metadata['system']:
                     self.txtPhase.setText(self.metadata_widget.metadata['system']['phase'])
                 if 'date_label' in self.metadata_widget.metadata['system']:
